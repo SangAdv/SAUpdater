@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{574CD675-D2E5-4789-AF9E-C5E217D352D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SangAdv.Updater.Client</RootNamespace>
+    <AssemblyName>SangAdv.Updater</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>SangAdv.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client\Classes\SAUpdaterCheck.cs" />
+    <Compile Include="Client\Classes\SAUpdaterClient.cs" />
+    <Compile Include="Client\Classes\SAUpdaterInstaller.cs" />
+    <Compile Include="Client\Classes\SAUpdaterNavigation.cs" />
+    <Compile Include="Client\Classes\SAUpdaterWinUtils.cs" />
+    <Compile Include="Client\Classes\SAUpdaterWinClient.cs" />
+    <Compile Include="Client\Controls\Base\ucBaseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Base\ucBaseControl.Designer.cs">
+      <DependentUpon>ucBaseControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Base\ucBlank.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Base\ucBlank.Designer.cs">
+      <DependentUpon>ucBlank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Base\ucDesigner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Base\ucDesigner.Designer.cs">
+      <DependentUpon>ucDesigner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Installer\SAUpdaterInstallInstaller.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Installer\SAUpdaterInstallInstaller.Designer.cs">
+      <DependentUpon>SAUpdaterInstallInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Main\SAUpdaterExecute.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Main\SAUpdaterExecute.Designer.cs">
+      <DependentUpon>SAUpdaterExecute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucDownload.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucDownload.Designer.cs">
+      <DependentUpon>ucDownload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucDownloadFiles.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucDownloadFiles.Designer.cs">
+      <DependentUpon>ucDownloadFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucEnd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucEnd.Designer.cs">
+      <DependentUpon>ucEnd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucError.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucError.Designer.cs">
+      <DependentUpon>ucError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucInstall.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucInstall.Designer.cs">
+      <DependentUpon>ucInstall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucInstallInstaller.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucInstallInstaller.Designer.cs">
+      <DependentUpon>ucInstallInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucKillProcess.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucKillProcess.Designer.cs">
+      <DependentUpon>ucKillProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucSQLInstall.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucSQLInstall.Designer.cs">
+      <DependentUpon>ucSQLInstall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Controls\Notes\SAUpdaterVersionNotes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Notes\SAUpdaterVersionNotes.designer.cs">
+      <DependentUpon>SAUpdaterVersionNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Embedded Controls\eucSAUpdaterProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Embedded Controls\eucSAUpdaterProgressBar.Designer.cs">
+      <DependentUpon>eucSAUpdaterProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\Forms\frmChooseFolder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Client\Forms\frmChooseFolder.Designer.cs">
+      <DependentUpon>frmChooseFolder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Abstract Classes\ASAUpdaterClientBase.cs" />
+    <Compile Include="Common\Abstract Classes\ASAUpdaterClientFileList.cs" />
+    <Compile Include="Common\Abstract Classes\ASAUpdaterClientFramework.cs" />
+    <Compile Include="Common\Abstract Classes\ASAUpdaterOSVersions.cs" />
+    <Compile Include="Common\Abstract Classes\ASAUpdaterRepositoryBase.cs" />
+    <Compile Include="Common\Classes\Common\SAUpdaterCommandLineOptions.cs" />
+    <Compile Include="Common\Classes\Common\SAUpdaterConstants.cs" />
+    <Compile Include="Common\Classes\Common\SAUpdaterGlobal.cs" />
+    <Compile Include="Common\Classes\Common\SAUpdaterNetFramework.cs" />
+    <Compile Include="Common\Classes\Common\SAUpdaterRepositorySettings.cs" />
+    <Compile Include="Common\Classes\Common\SAUpdaterStartupSettings.cs" />
+    <Compile Include="Common\Classes\Common\SAUpdaterWinClientFileList.cs" />
+    <Compile Include="Common\Classes\Common\SAUpdaterWinOSVersions.cs" />
+    <Compile Include="Common\Classes\Common\SAUpdaterWinShortCut.cs" />
+    <Compile Include="Common\Classes\File\SAUpdaterFile.cs" />
+    <Compile Include="Common\Classes\File\SAUpdaterFileDownload.cs" />
+    <Compile Include="Common\Classes\File\SAUpdaterFileUpload.cs" />
+    <Compile Include="Common\Classes\File\SAUpdaterFolder.cs" />
+    <Compile Include="Common\Classes\Helpers\SAUpdaterAsyncHelper.cs" />
+    <Compile Include="Common\Classes\Helpers\SAUpdaterDelegate.cs" />
+    <Compile Include="Common\Classes\Helpers\SAUpdaterErrorBase.cs" />
+    <Compile Include="Common\Classes\Helpers\SAUpdaterEventArgs.cs" />
+    <Compile Include="Common\Classes\Helpers\SAUpdaterLogger.cs" />
+    <Compile Include="Common\Classes\Update\SAUpdateDefinitionDataItem.cs" />
+    <Compile Include="Common\Classes\Update\SAUpdateDefinitionItem.cs" />
+    <Compile Include="Common\Classes\Update\SAUpdaterFileItem.cs" />
+    <Compile Include="Common\Classes\Update\SAUpdaterFileList.cs" />
+    <Compile Include="Common\Classes\Update\SAUpdaterMaster.cs" />
+    <Compile Include="Common\Classes\Update\SAUpdaterUpdateOptions.cs" />
+    <Compile Include="Common\Classes\Utilities\SAUpdaterVersionNumber.cs" />
+    <Compile Include="Common\Classes\Utilities\SAUpdaterZip.cs" />
+    <Compile Include="Common\Enums\Enums.cs" />
+    <Compile Include="Common\Enums\SAUpdaterEnums.cs" />
+    <Compile Include="Common\Extension Methods\ExtensionMethods.cs" />
+    <Compile Include="Common\Repository Templates\FTP\ASAUpdaterFTPBaseRepository.cs" />
+    <Compile Include="Common\Repository Templates\FTP\SAUpdaterFTPClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Client\Repository Templates\SAUpdaterFTPRepository.cs" />
+    <Compile Include="Client\Classes\SAWinUpdate.cs" />
+    <EmbeddedResource Include="Client\Controls\Base\ucBaseControl.resx">
+      <DependentUpon>ucBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Base\ucBlank.resx">
+      <DependentUpon>ucBlank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Base\ucDesigner.resx">
+      <DependentUpon>ucDesigner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Installer\SAUpdaterInstallInstaller.resx">
+      <DependentUpon>SAUpdaterInstallInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Main\SAUpdaterExecute.resx">
+      <DependentUpon>SAUpdaterExecute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Modules\ucDownload.resx">
+      <DependentUpon>ucDownload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Modules\ucDownloadFiles.resx">
+      <DependentUpon>ucDownloadFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Modules\ucEnd.resx">
+      <DependentUpon>ucEnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Modules\ucError.resx">
+      <DependentUpon>ucError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Modules\ucInstall.resx">
+      <DependentUpon>ucInstall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Modules\ucInstallInstaller.resx">
+      <DependentUpon>ucInstallInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Modules\ucKillProcess.resx">
+      <DependentUpon>ucKillProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Modules\ucSQLInstall.resx">
+      <DependentUpon>ucSQLInstall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Controls\Notes\SAUpdaterVersionNotes.resx">
+      <DependentUpon>SAUpdaterVersionNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Embedded Controls\eucSAUpdaterProgressBar.resx">
+      <DependentUpon>eucSAUpdaterProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Forms\frmChooseFolder.resx">
+      <DependentUpon>frmChooseFolder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Client\Diagram\Diagram.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="SangAdv.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon_16_SA_UP_EXEC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\internet_download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\process-delete2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if /I "$(ConfigurationName)" == "Release" Eazfuscator.NET.exe "$(TargetPath)" --msbuild-project-path "$(ProjectPath)" --msbuild-project-configuration "$(ConfigurationName)" --msbuild-project-platform "$(PlatformName)" --msbuild-solution-path "$(SolutionPath)" -n --newline-flush -v 2019.1</PostBuildEvent>
+  </PropertyGroup>
+</Project>

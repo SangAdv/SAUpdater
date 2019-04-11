@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29EED3B4-E271-477D-A6DB-EEE0C2B8C33B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SangAdv.Updater.Master</RootNamespace>
+    <AssemblyName>SAUpdater</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>SAUpdater.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Common\SAUpdaterMasterCommon.cs" />
+    <Compile Include="Classes\Helpers\AddFiles.cs" />
+    <Compile Include="Classes\Helpers\ComboBoxItem.cs" />
+    <Compile Include="Classes\Helpers\EnumFunctions.cs" />
+    <Compile Include="Classes\Helpers\ListViewExtender.cs" />
+    <Compile Include="Classes\Helpers\MainFormToolStripRenderer.cs" />
+    <Compile Include="Classes\Windows\SAUpdaterWinClient.cs" />
+    <Compile Include="Controls\Application\ucApplication.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Application\ucApplication.designer.cs">
+      <DependentUpon>ucApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Application\ucApplicationContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Application\ucApplicationContainer.Designer.cs">
+      <DependentUpon>ucApplicationContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Application\ucFiles.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Application\ucFiles.designer.cs">
+      <DependentUpon>ucFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Application\ucVersion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Application\ucVersion.designer.cs">
+      <DependentUpon>ucVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Base\ucTemplate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Base\ucTemplate.designer.cs">
+      <DependentUpon>ucTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Embedded Controls\eucFTPRepository.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Embedded Controls\eucFTPRepository.Designer.cs">
+      <DependentUpon>eucFTPRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Embedded Controls\eucRepositoryBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Embedded Controls\eucRepositoryBase.Designer.cs">
+      <DependentUpon>eucRepositoryBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Main\ucAbout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Main\ucAbout.designer.cs">
+      <DependentUpon>ucAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Main\ucApplications.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Main\ucApplications.designer.cs">
+      <DependentUpon>ucApplications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Main\ucCategory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Main\ucCategory.designer.cs">
+      <DependentUpon>ucCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Main\ucOpenSource.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Main\ucOpenSource.designer.cs">
+      <DependentUpon>ucOpenSource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\ucSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\ucSettings.Designer.cs">
+      <DependentUpon>ucSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Embedded Controls\eucSAUpdaterProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Embedded Controls\eucSAUpdaterProgressBar.Designer.cs">
+      <DependentUpon>eucSAUpdaterProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\Enum.cs" />
+    <Compile Include="Enums\EnumExtensionMethods.cs" />
+    <Compile Include="Forms\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmNewApplication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNewApplication.Designer.cs">
+      <DependentUpon>frmNewApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPublishFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmPublishFiles.Designer.cs">
+      <DependentUpon>frmPublishFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPublishVersion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmPublishVersion.Designer.cs">
+      <DependentUpon>frmPublishVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmStartup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmStartup.Designer.cs">
+      <DependentUpon>frmStartup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmTestRepositorySettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmTestRepositorySettings.designer.cs">
+      <DependentUpon>frmTestRepositorySettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmUpdateOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmUpdateOptions.designer.cs">
+      <DependentUpon>frmUpdateOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Application Data\AppDataApplication.cs" />
+    <Compile Include="Models\Application Data\AppDataFile.cs" />
+    <Compile Include="Models\Application Data\AppDataFiles.cs" />
+    <Compile Include="Models\Application Data\AppDataFolders.cs" />
+    <Compile Include="Models\Application Data\AppDataReleaseTypeVersionFiles.cs" />
+    <Compile Include="Models\Application Data\AppDataVersionFiles.cs" />
+    <Compile Include="Models\Application Data\AppDataVersions.cs" />
+    <Compile Include="Models\Main Data\MasterDataApplication.cs" />
+    <Compile Include="Models\Main Data\MasterDataCategory.cs" />
+    <Compile Include="Models\Main Data\MasterDataFile.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository Templates\FTP\SAUpdaterFTPRepository.cs" />
+    <EmbeddedResource Include="Controls\Application\ucApplication.resx">
+      <DependentUpon>ucApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Application\ucApplicationContainer.resx">
+      <DependentUpon>ucApplicationContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Application\ucFiles.resx">
+      <DependentUpon>ucFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Application\ucVersion.resx">
+      <DependentUpon>ucVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Embedded Controls\eucFTPRepository.resx">
+      <DependentUpon>eucFTPRepository.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Embedded Controls\eucRepositoryBase.resx">
+      <DependentUpon>eucRepositoryBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Main\ucAbout.resx">
+      <DependentUpon>ucAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Main\ucApplications.resx">
+      <DependentUpon>ucApplications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Main\ucCategory.resx">
+      <DependentUpon>ucCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Main\ucOpenSource.resx">
+      <DependentUpon>ucOpenSource.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Settings\ucSettings.resx">
+      <DependentUpon>ucSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Embedded Controls\eucSAUpdaterProgressBar.resx">
+      <DependentUpon>eucSAUpdaterProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNewApplication.resx">
+      <DependentUpon>frmNewApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmPublishFiles.resx">
+      <DependentUpon>frmPublishFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmPublishVersion.resx">
+      <DependentUpon>frmPublishVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmStartup.resx">
+      <DependentUpon>frmStartup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmTestRepositorySettings.resx">
+      <DependentUpon>frmTestRepositorySettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmUpdateOptions.resx">
+      <DependentUpon>frmUpdateOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\About Filled-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Administrative Tools Filled-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Available Updates Filled-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GitHub Filled-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Help Filled-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\link_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\link-broken%401x_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SAUpdater_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Test Partial Passed Filled-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Test.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SAUpdater.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="LiteDB">
+      <Version>4.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sangadv.Updater.Client\SangAdv.Updater.Client.csproj">
+      <Project>{574cd675-d2e5-4789-af9e-c5e217d352d4}</Project>
+      <Name>SangAdv.Updater.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
