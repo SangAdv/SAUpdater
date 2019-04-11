@@ -81,6 +81,8 @@ namespace SangAdv.Updater.Client
             lblFileCount.Text = "";
             lblError.Visible = false;
 
+            #region Check OS
+
             if (SAUpdaterGlobal.Client.ClientOSVersion.IsRequiredVersion(SAUpdaterGlobal.Repository.UpdateDefinition.IntRequiredOSVersion))
             {
                 lblOS.Text = $"{SAUpdaterGlobal.Client.ClientOSVersion.VersionDescription} installed";
@@ -91,6 +93,10 @@ namespace SangAdv.Updater.Client
                 lblOS.Text = $"{SAUpdaterClient.Checker.ApplicationTitle} require {SAUpdaterGlobal.Client.ClientOSVersion.GetVersionDescription(SAUpdaterGlobal.Repository.UpdateDefinition.IntRequiredOSVersion)} or better to operate.";
                 pbOSStatus.Image = ImageList1.Images[0];
             }
+
+            #endregion Check OS
+
+            #region Check .NET Framework
 
             if (SAUpdaterGlobal.Client.ClientFramework.IsRequiredVersion(SAUpdaterGlobal.Repository.UpdateDefinition.RequiredFramework))
             {
@@ -105,7 +111,10 @@ namespace SangAdv.Updater.Client
                 pbFWStatus.Image = ImageList1.Images[0];
             }
 
-            //Check for connection and stop
+            #endregion Check .NET Framework
+
+            #region Check Connectivity
+
             if (!SAUpdaterClient.Checker.Connected)
             {
                 DisplayMessage("Please connect to the internet to install pharmatrack.");
@@ -119,6 +128,8 @@ namespace SangAdv.Updater.Client
                 pbConnected.Image = ImageList1.Images[1];
                 lblConnected.Text = "Connected to the Net";
             }
+
+            #endregion Check Connectivity
 
             pbSettingsfile.Image = null;
             lblSettingsFile.Text = "";

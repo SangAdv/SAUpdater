@@ -38,7 +38,11 @@ namespace SangAdv.Updater.Client
                 if (!SAUpdaterGlobal.Connected) return false;
                 if (!IsRequiredOSType) return false;
                 if (!IsRequiredOSVersion) return false;
-                if (!IsRequiredOSArchitecture) return false;
+                if (!IsRequiredOSArchitecture)
+                {
+                    Error = new SAUpdaterEventArgs("The OS Architecture does not meet the requirement.", SAUpdaterResults.NewUpdateNotAvailable);
+                    return false;
+                }
                 if (!HasNewApplicationRelease)
                 {
                     Error = new SAUpdaterEventArgs("A new update is not available\nPlease contact support if you want to force an update.", SAUpdaterResults.NewUpdateNotAvailable);

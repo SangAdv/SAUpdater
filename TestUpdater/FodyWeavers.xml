@@ -4,6 +4,6 @@
     IncludeDebugSymbols='false'
     <IncludeAssemblies>
       Newtonsoft.Json
-      SangAdv.Updater.Client
+      SangAdv.Updater
     </IncludeAssemblies></Costura>
 </Weavers>
