@@ -1,6 +1,7 @@
 ﻿using SangAdv.Updater.Common;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SangAdv.Updater.Client
@@ -23,10 +24,10 @@ namespace SangAdv.Updater.Client
 
         #endregion Constructor
 
-        private void SAVersionNotes_Load(object sender, EventArgs e)
+        private async void SAVersionNotes_Load(object sender, EventArgs e)
         {
             if (DesignMode) IsDesignMode();
-            else LoadNotes();
+            else await LoadNotesAsync();
         }
 
         private void IsDesignMode()
@@ -34,7 +35,7 @@ namespace SangAdv.Updater.Client
             rtbNotes.Text = "Design mode";
         }
 
-        public void LoadNotes()
+        public async Task LoadNotesAsync()
         {
             if (!SAUpdaterGlobal.IsInitialised)
             {
@@ -52,7 +53,7 @@ namespace SangAdv.Updater.Client
                 Application.DoEvents();
                 try
                 {
-                    if (string.IsNullOrEmpty(mNotes)) mNotes = tRepository.GetNotes(tRepository.UpdateDefinition.NewApplicationVersion);
+                    if (string.IsNullOrEmpty(mNotes)) mNotes = await tRepository.GetNotesAsync(tRepository.UpdateDefinition.NewApplicationVersion);
                     rtbNotes.Rtf = mNotes;
                 }
                 catch (Exception ex)

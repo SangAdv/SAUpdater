@@ -80,12 +80,12 @@ namespace SangAdv.Updater.Common
             }
         }
 
-        public bool GetUpdateFileList(string selectedVersion)
+        public async Task<bool> GetUpdateFileListAsync(string selectedVersion)
         {
             Error.ClearErrorMessage();
             try
             {
-                var tResult = DownloadFileContents(RepositoryVersionDefinitionsFolder(selectedVersion), SAUpdaterConstants.RepositoryUpdateFilesFileName);
+                var tResult = await DownloadFileContentsAsync(RepositoryVersionDefinitionsFolder(selectedVersion), SAUpdaterConstants.RepositoryUpdateFilesFileName);
                 if (string.IsNullOrEmpty(tResult)) return false;
                 tResult = tResult.InflateString();
                 UpdateFiles.FromString(tResult);
@@ -118,9 +118,9 @@ namespace SangAdv.Updater.Common
             }
         }
 
-        public string GetNotes(string selectedVersion)
+        public async Task<string> GetNotesAsync(string selectedVersion)
         {
-            return DownloadFileContents(RepositoryVersionDefinitionsFolder(selectedVersion), SAUpdaterConstants.RepositoryUpdateNotesFileName).InflateString();
+            return (await DownloadFileContentsAsync(RepositoryVersionDefinitionsFolder(selectedVersion), SAUpdaterConstants.RepositoryUpdateNotesFileName)).InflateString();
         }
 
         public void SetUpdateDefinition()
@@ -142,13 +142,13 @@ namespace SangAdv.Updater.Common
             }
         }
 
-        public bool GetUpdateDefinition()
+        public async Task<bool> GetUpdateDefinitionAsync()
         {
             Error.ClearErrorMessage();
             try
             {
                 UpdateDefinition = new SAUpdateDefinitionItem();
-                var tResult = DownloadFileContents(RepositoryDefinitionsFolder, SAUpdaterConstants.RepositoryUpdateDefinitionFileName);
+                var tResult = await DownloadFileContentsAsync(RepositoryDefinitionsFolder, SAUpdaterConstants.RepositoryUpdateDefinitionFileName);
 
                 SAUpdaterGlobal.AddLog("ASAUpdaterRepositoryBase", "GetUpdateDefinition", $"Raw Update Definition: {tResult}");
 
@@ -195,7 +195,7 @@ namespace SangAdv.Updater.Common
 
         public abstract bool ReplaceFile(string remoteDirectory, string currentFileName, string newFileName);
 
-        public abstract string DownloadFileContents(string remoteDirectory, string remoteFileName);
+        public abstract Task<string> DownloadFileContentsAsync(string remoteDirectory, string remoteFileName);
 
         public abstract Task<bool> DownloadFileAsync(string remoteDirectory, string remoteFileName, string destinationFilename);
 

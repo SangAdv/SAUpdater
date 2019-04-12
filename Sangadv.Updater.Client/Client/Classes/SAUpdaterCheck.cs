@@ -1,5 +1,6 @@
 ﻿using SangAdv.Updater.Common;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace SangAdv.Updater.Client
 {
@@ -79,10 +80,10 @@ namespace SangAdv.Updater.Client
 
         #region Private Methods
 
-        private bool GetRepositoryUpdateDefinition()
+        private async Task<bool> GetRepositoryUpdateDefinitionAsync()
         {
             MessageChanged("Getting update definition");
-            return SAUpdaterGlobal.Repository.GetUpdateDefinition();
+            return await SAUpdaterGlobal.Repository.GetUpdateDefinitionAsync();
         }
 
         #endregion Private Methods

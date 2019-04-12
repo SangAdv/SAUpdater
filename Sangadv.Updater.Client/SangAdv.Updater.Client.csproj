@@ -45,11 +45,13 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\Classes\SAUpdaterCheck.cs" />
@@ -193,6 +195,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Client\Repository Templates\SAUpdaterFTPRepository.cs" />
     <Compile Include="Client\Classes\SAWinUpdate.cs" />
+    <Compile Include="Client\Controls\Modules\ucInitialise.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\Controls\Modules\ucInitialise.Designer.cs">
+      <DependentUpon>ucInitialise.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Client\Controls\Base\ucBaseControl.resx">
       <DependentUpon>ucBaseControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -251,6 +259,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Client\Controls\Modules\ucInitialise.resx">
+      <DependentUpon>ucInitialise.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Client\Diagram\Diagram.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

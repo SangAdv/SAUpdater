@@ -32,7 +32,7 @@ namespace SangAdv.Updater.Client
 
         #region Methods
 
-        public void Initialise(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
+        public async Task InitialiseAsync(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
         {
             Error.ClearErrorMessage();
 
@@ -41,11 +41,11 @@ namespace SangAdv.Updater.Client
             mIsInitialised = true;
             mApplicationLaunchFolder = applicationLaunchFolder;
 
-            var nrs = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
-            var nc = new SAUpdaterWinClient();
-            var uo = new SAUpdaterUpdateOptions { ApplicationTitle = applicationTitle, LaunchFilename = applicationLaunchFilename, ApplicationFolder = mApplicationLaunchFolder, ChooseApplicationFolder = true, InstallerFilename = installerFilename };
+            var repository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
+            var client = new SAUpdaterWinClient();
+            var options = new SAUpdaterUpdateOptions { ApplicationTitle = applicationTitle, LaunchFilename = applicationLaunchFilename, ApplicationFolder = mApplicationLaunchFolder, ChooseApplicationFolder = true, InstallerFilename = installerFilename };
 
-            SAUpdaterClient.Initialise(nrs, nc, uo);
+            await SAUpdaterClient.InitialiseAsync(repository, client, options);
 
             if (SAUpdaterClient.Error.HasError)
             {
@@ -57,6 +57,10 @@ namespace SangAdv.Updater.Client
             if (DoInstallerUpdate) return;
 
             HasNewApplicationRelease = SAUpdaterClient.Checker.HasNewApplicationRelease;
+        }
+
+        public void UpdateOptionsFromCommandLine()
+        {
         }
 
         public async Task<bool> UpdateInstaller()

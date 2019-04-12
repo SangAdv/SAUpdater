@@ -35,19 +35,19 @@ namespace SangAdv.Updater.Client
 
         #region Methods
 
-        public override async void ExecuteStart()
+        public override async Task ExecuteStartAsync()
         {
             SuspendLayout();
-            PrepareUpdateFiles();
+            await PrepareUpdateFilesAsync();
             PrepareDownloadFiles();
             await DownloadDownloadFiles();
             ResumeLayout();
         }
 
-        private void PrepareUpdateFiles()
+        private async Task PrepareUpdateFilesAsync()
         {
             DisplayMessage("Loading update files list ...");
-            mRepository.GetUpdateFileList(SAUpdaterClient.Checker.NewApplicationVersion);
+            await mRepository.GetUpdateFileListAsync(SAUpdaterClient.Checker.NewApplicationVersion);
             if (mRepository.HasError)
             {
                 RaiseErrorOccuredEvent("Update files...", "Could not retrieve update file list from repository", SAUpdaterStatusIcon.Stop);

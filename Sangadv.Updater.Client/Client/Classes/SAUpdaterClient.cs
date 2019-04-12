@@ -1,4 +1,5 @@
-﻿using SangAdv.Updater.Common;
+﻿using System.Threading.Tasks;
+using SangAdv.Updater.Common;
 
 namespace SangAdv.Updater.Client
 {
@@ -23,14 +24,14 @@ namespace SangAdv.Updater.Client
 
         #region Methods
 
-        public static void Initialise(ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client, SAUpdaterUpdateOptions options)
+        internal static async Task InitialiseAsync(ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client, SAUpdaterUpdateOptions options)
         {
             if (IsInitialised) return;
 
             Error.ClearErrorMessage();
 
             //Process the commandline arguments
-            if (!SAUpdaterGlobal.Initialise(repository, client, options))
+            if (!await SAUpdaterGlobal.InitialiseAsync(repository, client, options))
             {
                 Error = SAUpdaterGlobal.Error;
                 MessageChanged($"{options.ApplicationTitle} can not be installed");

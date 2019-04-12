@@ -3,7 +3,7 @@ using System;
 
 namespace SangAdv.Updater.Client
 {
-    public class SAUpdaterWinClient : ASAUpdaterClientBase
+    internal class SAUpdaterWinClient : ASAUpdaterClientBase
     {
         #region Constructor
 

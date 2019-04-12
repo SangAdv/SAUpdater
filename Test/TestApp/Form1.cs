@@ -20,7 +20,7 @@ namespace Test
 
         private async void Form1_Shown(object sender, EventArgs e)
         {
-            var hasUpdate = await checkUpdate();
+            var hasUpdate = await checkUpdateAsync();
             if (hasUpdate) doUpdate();
         }
 
@@ -48,9 +48,9 @@ namespace Test
             }
         }
 
-        private async Task<bool> checkUpdate()
+        private async Task<bool> checkUpdateAsync()
         {
-            mUpdate.Initialise(@"http://repo.sanguine.online/applications/", "Test", "Test", "TestApp.exe", Application.StartupPath, "TestUpdater.exe");
+            await mUpdate.InitialiseAsync(@"http://repo.sanguine.online/applications/", "Test", "Test", "TestApp.exe", Application.StartupPath, "TestUpdater.exe");
 
             if (mUpdate.DoInstallerUpdate)
             {

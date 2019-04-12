@@ -19,6 +19,7 @@ namespace SangAdv.Updater.Common
         DownloadError = 13,
         FileFolderDeleteError = 14,
         NewUpdateNotAvailable = 15,
+        InvalidOSArchitecture = 16,
         GeneralError = 999
     }
 

@@ -217,6 +217,7 @@ namespace SAUpdateInstaller
             this.upExec.Name = "upExec";
             this.upExec.Size = new System.Drawing.Size(700, 320);
             this.upExec.TabIndex = 72;
+            this.upExec.InitialisationCompleted += new SangAdv.Updater.Common.UpdaterBooleanDelegate(this.UpExec_InitialisationCompleted);
             this.upExec.InstallStarted += new SangAdv.Updater.Common.UpdaterEmptyDelegate(this.upExec_InstallStarted);
             this.upExec.InstallCompleted += new SangAdv.Updater.Common.UpdaterBooleanDelegate(this.upExec_InstallCompleted);
             this.upExec.CloseInstaller += new SangAdv.Updater.Common.UpdaterEmptyDelegate(this.upExec_CloseInstaller);
@@ -238,7 +239,6 @@ namespace SAUpdateInstaller
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Installer";
             this.Load += new System.EventHandler(this.frmMain_Load);
-            this.Shown += new System.EventHandler(this.frmMain_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

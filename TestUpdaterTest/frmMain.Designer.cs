@@ -43,9 +43,9 @@ namespace SAUpdateInstaller
             this.label2 = new System.Windows.Forms.Label();
             this.VersionNotes = new SangAdv.Updater.Client.SAUpdaterVersionNotes();
             this.pnlInstall = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Label1 = new System.Windows.Forms.Label();
             this.upExec = new SangAdv.Updater.Client.SAUpdaterExecute();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             this.pnlNotes.SuspendLayout();
@@ -190,6 +190,16 @@ namespace SAUpdateInstaller
             this.pnlInstall.Size = new System.Drawing.Size(704, 508);
             this.pnlInstall.TabIndex = 75;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(45, 13);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(102, 94);
+            this.pictureBox1.TabIndex = 77;
+            this.pictureBox1.TabStop = false;
+            // 
             // Label1
             // 
             this.Label1.AutoSize = true;
@@ -208,20 +218,11 @@ namespace SAUpdateInstaller
             this.upExec.Name = "upExec";
             this.upExec.Size = new System.Drawing.Size(700, 320);
             this.upExec.TabIndex = 72;
+            this.upExec.InitialisationCompleted += new SangAdv.Updater.Common.UpdaterBooleanDelegate(this.UpExec_InitialisationCompleted);
             this.upExec.InstallStarted += new SangAdv.Updater.Common.UpdaterEmptyDelegate(this.upExec_InstallStarted);
             this.upExec.InstallCompleted += new SangAdv.Updater.Common.UpdaterBooleanDelegate(this.upExec_InstallCompleted);
             this.upExec.CloseInstaller += new SangAdv.Updater.Common.UpdaterEmptyDelegate(this.upExec_CloseInstaller);
             this.upExec.ChangeControlBoxStatus += new SangAdv.Updater.Common.UpdaterBooleanDelegate(this.upExec_ChangeControlBoxStatus);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(45, 13);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(102, 94);
-            this.pictureBox1.TabIndex = 77;
-            this.pictureBox1.TabStop = false;
             // 
             // frmMain
             // 

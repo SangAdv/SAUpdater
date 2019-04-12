@@ -1,6 +1,7 @@
 ﻿using SangAdv.Updater.Common;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SangAdv.Updater.Client
@@ -88,8 +89,9 @@ namespace SangAdv.Updater.Client
 
         #region Methods
 
-        public virtual void ExecuteStart()
+        public virtual async Task ExecuteStartAsync()
         {
+            await Task.Delay(0);
         }
 
         public void DisplayErrorMessage(string exMessage) => DisplayErrorMessage(exMessage, null);

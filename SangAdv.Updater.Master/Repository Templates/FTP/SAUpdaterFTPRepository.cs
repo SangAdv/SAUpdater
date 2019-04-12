@@ -37,7 +37,7 @@ namespace SangAdv.Updater.Master
 
         #region Not Implemented in Master
 
-        public override string DownloadFileContents(string remoteDirectory, string remoteFileName)
+        public override Task<string> DownloadFileContentsAsync(string remoteDirectory, string remoteFileName)
         {
             throw new NotImplementedException();
         }

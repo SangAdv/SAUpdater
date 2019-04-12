@@ -1,6 +1,7 @@
 ﻿using SangAdv.Updater.Common;
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SangAdv.Updater.Client
@@ -19,10 +20,10 @@ namespace SangAdv.Updater.Client
 
         #region Methods
 
-        public override void ExecuteStart()
+        public override async Task ExecuteStartAsync()
         {
             SuspendLayout();
-            PrepareUpdateFiles();
+            await PrepareUpdateFiles();
             SetUI();
             Application.DoEvents();
             ResumeLayout();
@@ -31,10 +32,10 @@ namespace SangAdv.Updater.Client
             UpdateClient();
         }
 
-        private void PrepareUpdateFiles()
+        private async Task PrepareUpdateFiles()
         {
             DisplayMessage("Loading update files list ...");
-            SAUpdaterGlobal.Repository.GetUpdateFileList(SAUpdaterClient.Checker.NewApplicationVersion);
+            await SAUpdaterGlobal.Repository.GetUpdateFileListAsync(SAUpdaterClient.Checker.NewApplicationVersion);
             if (SAUpdaterGlobal.Repository.HasError)
             {
                 RaiseErrorOccuredEvent("Update files...", "Could not retrieve update file list from repository", SAUpdaterStatusIcon.Stop);

@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SangAdv.Updater.Client
@@ -11,6 +12,8 @@ namespace SangAdv.Updater.Client
     public partial class SAUpdaterExecute : UserControl
     {
         #region Events
+
+        public event UpdaterBooleanDelegate InitialisationCompleted = b => { };
 
         public event UpdaterEmptyDelegate InstallStarted = () => { };
 
@@ -92,6 +95,8 @@ namespace SangAdv.Updater.Client
             mNavigation.CloseInstaller += RaiseCloseInstallerEvent;
             mNavigation.InstallCompleted += InstallDone;
             mNavigation.ChangeControlBoxStatus += RaiseChangeControlBoxStatusEvent;
+
+            displayInitialiseControl();
         }
 
         #endregion Constructor
@@ -111,30 +116,35 @@ namespace SangAdv.Updater.Client
 
         public void Add(SAApplicationType applicationType) => mNavigation.Add(applicationType);
 
-        public bool ShowFirst()
+        public async Task<bool> ShowFirstAsync()
         {
             //SAUpdaterDebugLog.Add($"SAUpdaterGlobal.IsInitialised: {SAUpdaterGlobal.IsInitialised}", "SAUpdaterExecute", "ShowFirst");
 
             if (!SAUpdaterGlobal.IsInitialised)
             {
-                ProcessInitialisationError();
+                await ProcessInitialisationErrorAsync();
                 return false;
             }
 
             if (mNavigation.Count == 0)
             {
-                mNavigation.DisplayError("Error Occurred", string.IsNullOrEmpty(mError.Message) ? "There are no views defined for navigation" : mError.Message, SAUpdaterStatusIcon.Warning);
+                await mNavigation.DisplayErrorAsync("Error Occurred", string.IsNullOrEmpty(mError.Message) ? "There are no views defined for navigation" : mError.Message, SAUpdaterStatusIcon.Warning);
                 return false;
             }
 
-            mNavigation.ShowFirst();
+            await mNavigation.ShowFirstAsync();
             InstallStarted();
             return true;
         }
 
-        public bool Initialise(SAUpdaterWinOSVersion osVersion, SAUpdaterFrameworkVersions framework, ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client, SAUpdaterUpdateOptions options)
+        public async Task InitialiseAsync(SAUpdaterWinOSVersion osVersion, SAUpdaterFrameworkVersions framework, string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename, string[] commandlineOptions = null)
         {
             mError.ClearErrorMessage();
+
+            var repository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
+            var client = new SAUpdaterWinClient();
+            var options = new SAUpdaterUpdateOptions { ApplicationTitle = applicationTitle, LaunchFilename = applicationLaunchFilename, ApplicationFolder = applicationLaunchFolder, ChooseApplicationFolder = true, InstallerFilename = installerFilename };
+            if (commandlineOptions != null) options.UpdateFromCommandLine(commandlineOptions);
 
             //Prepare the installation folder if options.ApplicationFolder = ""
             if (options.ChooseApplicationFolder)
@@ -152,14 +162,15 @@ namespace SangAdv.Updater.Client
                 if (string.IsNullOrEmpty(f.SelectedFolder))
                 {
                     mError = new SAUpdaterEventArgs("An installation folder was not selected", SAUpdaterResults.FilesFolderMissing);
-                    ProcessInitialisationError();
-                    return false;
+                    await ProcessInitialisationErrorAsync();
+                    InitialisationCompleted(false);
+                    return;
                 }
 
                 options.ApplicationFolder = f.SelectedFolder;
             }
 
-            SAUpdaterClient.Initialise(repository, client, options);
+            await SAUpdaterClient.InitialiseAsync(repository, client, options);
 
             SAUpdaterGlobal.AddLog("SAUpdaterExecute", "Initialise", $"options.ChooseApplicationFolder: {options.ChooseApplicationFolder}");
             SAUpdaterGlobal.AddLog("SAUpdaterExecute", "Initialise", $"options.ApplicationFolder: {options.ApplicationFolder}");
@@ -170,14 +181,23 @@ namespace SangAdv.Updater.Client
             //Process the Initialisation results
             if (!Checker.CanInstall)
             {
+                //Check if it an architecture issue
+                if (!Checker.IsRequiredOSArchitecture)
+                {
+                    mError = new SAUpdaterEventArgs($"{options.ApplicationTitle} needs a 64Bit OS.", SAUpdaterResults.InvalidOSArchitecture);
+                    InitialisationCompleted(false);
+                    return;
+                }
+
                 //If a new update is not available, make sure the files were installed
                 if (Checker.Error.Result == SAUpdaterResults.NewUpdateNotAvailable)
                 {
-                    repository.GetUpdateFileList(Checker.NewApplicationVersion);
+                    await repository.GetUpdateFileListAsync(Checker.NewApplicationVersion);
                     if (repository.HasError)
                     {
                         mError = new SAUpdaterEventArgs("Could not retrieve update file list from repository", SAUpdaterResults.GeneralError);
-                        return false;
+                        InitialisationCompleted(false);
+                        return;
                     }
 
                     client.UpdateFiles.Prepare(repository.UpdateFiles.List);
@@ -185,7 +205,8 @@ namespace SangAdv.Updater.Client
                     if (!mError.HasError)
                     {
                         mError = Checker.Error;
-                        return false;
+                        InitialisationCompleted(false);
+                        return;
                     }
 
                     mError = new SAUpdaterEventArgs();
@@ -225,13 +246,15 @@ namespace SangAdv.Updater.Client
                                     break;
                             }
 
-                            return false;
+                            InitialisationCompleted(false);
+                            return;
                         }
                     }
                     catch (Exception ex)
                     {
                         mError = new SAUpdaterEventArgs($"Undefined Error: {ex.Message}", SAUpdaterResults.GeneralError);
-                        return false;
+                        InitialisationCompleted(false);
+                        return;
                     }
                 }
             }
@@ -242,7 +265,7 @@ namespace SangAdv.Updater.Client
 
             SAUpdaterGlobal.IsInitialised = true;
 
-            return true;
+            InitialisationCompleted(true);
         }
 
         #endregion Methods
@@ -276,7 +299,7 @@ namespace SangAdv.Updater.Client
             return currentStartupPath;
         }
 
-        private void ProcessInitialisationError()
+        private async Task ProcessInitialisationErrorAsync()
         {
             var tHeading = "Initialisation Error";
             var tMessage = "The control's data structure is not initialised";
@@ -320,11 +343,17 @@ namespace SangAdv.Updater.Client
                     tIcon = SAUpdaterStatusIcon.Stop;
                     break;
 
+                case SAUpdaterResults.InvalidOSArchitecture:
+                    tHeading = "64Bit OS Required";
+                    tMessage = mError.Message;
+                    tIcon = SAUpdaterStatusIcon.Stop;
+                    break;
+
                 default:
                     tMessage = string.IsNullOrEmpty(mError.Message) ? tMessage : mError.Message;
                     break;
             }
-            mNavigation.DisplayError(tHeading, tMessage, tIcon);
+            await mNavigation.DisplayErrorAsync(tHeading, tMessage, tIcon);
         }
 
         #region Display Controls
@@ -333,6 +362,13 @@ namespace SangAdv.Updater.Client
         {
             ControlLoadState();
             uc1 = new ucDesigner();
+            DisplayControl(uc1);
+        }
+
+        private void displayInitialiseControl()
+        {
+            ControlLoadState();
+            uc1 = new ucInitialise();
             DisplayControl(uc1);
         }
 

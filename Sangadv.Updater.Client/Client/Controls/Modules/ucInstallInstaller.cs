@@ -1,6 +1,7 @@
 ﻿using SangAdv.Updater.Common;
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SangAdv.Updater.Client
@@ -89,7 +90,7 @@ namespace SangAdv.Updater.Client
             return btnAction.Enabled;
         }
 
-        public override void ExecuteStart()
+        public override async  Task ExecuteStartAsync()
         {
             SuspendLayout();
             saUInstall.Initialise();
@@ -97,6 +98,7 @@ namespace SangAdv.Updater.Client
             SetDefaultUI();
             Application.DoEvents();
             ResumeLayout();
+            await Task.Delay(0);
         }
 
         private void InstallerInstallCompleted(bool success)

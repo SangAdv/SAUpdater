@@ -69,7 +69,7 @@ namespace SangAdv.Updater.Master
 
         internal async Task<bool> CheckUpdate()
         {
-            mUpdate.Initialise("https://repo.sanguine.online/applications/", "saupdaterwin", "SAUpdater", "SAUpdater.exe", Application.StartupPath, "updater.exe");
+            await mUpdate.InitialiseAsync("https://repo.sanguine.online/applications/", "saupdaterwin", "SAUpdater", "SAUpdater.exe", Application.StartupPath, "updater.exe");
 
             if (mUpdate.DoInstallerUpdate)
             {

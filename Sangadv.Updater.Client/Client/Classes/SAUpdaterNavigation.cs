@@ -1,6 +1,7 @@
 ﻿using SangAdv.Updater.Common;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SangAdv.Updater.Client
@@ -60,16 +61,16 @@ namespace SangAdv.Updater.Client
             }
         }
 
-        public void ShowFirst()
+        public async Task ShowFirstAsync()
         {
             mCurrentIndex = 1;
-            DisplayControl(mQueue[mCurrentIndex]);
+            await DisplayControlAsync(mQueue[mCurrentIndex]);
         }
 
-        internal void DisplayError(string heading, string message, SAUpdaterStatusIcon icon)
+        internal async Task DisplayErrorAsync(string heading, string message, SAUpdaterStatusIcon icon)
         {
             var ec = new ucError(heading, message, icon);
-            DisplayControl(ec);
+            await DisplayControlAsync(ec);
             InstallCompleted(false);
         }
 
@@ -79,11 +80,16 @@ namespace SangAdv.Updater.Client
             Add(uc2);
         }
 
+        internal async void RaiseDisplayErrorAsync(string heading, string message, SAUpdaterStatusIcon icon)
+        {
+            await DisplayErrorAsync(heading, message, icon);
+        }
+
         #endregion Methods
 
         #region Private Methods
 
-        private void GotoNext()
+        private async void GotoNextAsync()
         {
             mCurrentIndex++;
             if (mCurrentIndex > mQueue.Count)
@@ -92,7 +98,7 @@ namespace SangAdv.Updater.Client
                 return;
             }
             ControlLoadState();
-            DisplayControl(mQueue[mCurrentIndex]);
+            await DisplayControlAsync(mQueue[mCurrentIndex]);
         }
 
         private void ControlLoadState()
@@ -102,10 +108,10 @@ namespace SangAdv.Updater.Client
             mClientPanel.Controls.Clear();
         }
 
-        private void DisplayControl(ucBaseControl control)
+        private async Task DisplayControlAsync(ucBaseControl control)
         {
-            control.ActionButtonClicked += GotoNext;
-            control.ErrorOccured += DisplayError;
+            control.ActionButtonClicked += GotoNextAsync;
+            control.ErrorOccured += RaiseDisplayErrorAsync;
             control.CloseInstaller += CloseInstaller;
             control.InstallCompleted += InstallCompletedTrue;
             control.ChangeControlBoxStatus += ChangeControlBoxStatus;
@@ -118,7 +124,7 @@ namespace SangAdv.Updater.Client
             mClientPanel.Enabled = true;
             mClientPanel.ResumeLayout();
 
-            control.ExecuteStart();
+            await control.ExecuteStartAsync();
         }
 
         private void InstallCompletedTrue() => InstallCompleted(true);

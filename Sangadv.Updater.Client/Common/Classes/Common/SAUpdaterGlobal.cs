@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SangAdv.Updater.Common
 {
@@ -26,7 +27,7 @@ namespace SangAdv.Updater.Common
 
         #region Methods
 
-        public static bool Initialise(ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client, SAUpdaterUpdateOptions options)
+        internal static async Task<bool> InitialiseAsync(ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client, SAUpdaterUpdateOptions options)
         {
             if (IsInitialised) return true;
 
@@ -34,7 +35,7 @@ namespace SangAdv.Updater.Common
 
             PrepareIgnoreList();
 
-            InitialiseLocals(options, repository, client);
+            await InitialiseLocalsAsync(options, repository, client);
             if (Error.HasError) return false;
 
             mlogger = new SAUpdaterLogger(client.LoggingFolder);
@@ -60,7 +61,7 @@ namespace SangAdv.Updater.Common
             return mIgnoreList.Contains(filename.Trim().ToUpper());
         }
 
-        private static void InitialiseLocals(SAUpdaterUpdateOptions options, ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client)
+        private static async Task InitialiseLocalsAsync(SAUpdaterUpdateOptions options, ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client)
         {
             //==================================================
             //Do this first - Required by the Global variables
@@ -91,7 +92,7 @@ namespace SangAdv.Updater.Common
             }
 
             //Get repository update definition
-            if (!repository.GetUpdateDefinition())
+            if (!await repository.GetUpdateDefinitionAsync())
             {
                 Error = new SAUpdaterEventArgs("Could not read update definition", SAUpdaterResults.MissingVersionFile);
                 return;

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SangAdv.Updater.Client
@@ -47,9 +48,10 @@ namespace SangAdv.Updater.Client
 
         #region Methods
 
-        public override void ExecuteStart()
+        public override async Task ExecuteStartAsync()
         {
             if (mActiveProcessList.Count < 1) RaiseActionButtonClickedEvent();
+            await Task.Delay(0);
         }
 
         public void Execute()

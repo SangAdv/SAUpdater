@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SangAdv.Updater.Client
@@ -34,12 +35,13 @@ namespace SangAdv.Updater.Client
 
         #region Methods
 
-        public override void ExecuteStart()
+        public override async Task ExecuteStartAsync()
         {
             SuspendLayout();
             SetDefaults();
             Application.DoEvents();
             ResumeLayout();
+            await Task.Delay(0);
         }
 
         private void SetDefaults()

@@ -4,6 +4,7 @@ using SangAdv.Updater.Client.Properties;
 using SangAdv.Updater.Common;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SAUpdateInstaller
@@ -23,14 +24,14 @@ namespace SAUpdateInstaller
             InitializeComponent();
             Text = "";
             pnlNotes.Visible = false;
-            pnlInstall.Visible = false;
+            btnNotes.Visible = false;
         }
 
         #endregion Constructor
 
         #region Process UI
 
-        private void frmMain_Load(object sender, EventArgs e)
+        private async void frmMain_Load(object sender, EventArgs e)
         {
             lblVersion.Text = Application.ProductVersion;
 
@@ -41,19 +42,22 @@ namespace SAUpdateInstaller
 
             var tDirectory = @"c:\Test\TestInstall";
 
-            var nrs = new SAUpdaterFTPRepository(@"http://repo.sanguine.online/applications/", "Test");
-            var nc = new SAUpdaterWinClient();
-            var uo = new SAUpdaterUpdateOptions { ApplicationTitle = "Test", LaunchFilename = "TestApp.exe", ApplicationFolder = tDirectory, ChooseApplicationFolder = true, InstallerFilename = "TestUpdater.exe" };
-            uo.UpdateFromCommandLine(Global.CommandLineArgs);
-
             upExec.License = Resources.License;
             upExec.MustAcceptLicense = true;
             upExec.Logo = Resources.Logo;
             upExec.InstallerVersion = Application.ProductVersion;
 
-            var tSuccess = upExec.Initialise(SAUpdaterWinOSVersion.Win7, SAUpdaterFrameworkVersions.Version45, nrs, nc, uo);
+            await upExec.InitialiseAsync(SAUpdaterWinOSVersion.Win7, SAUpdaterFrameworkVersions.Version45, @"http://repo.sanguine.online/applications/", "Test", "Test", "TestApp.exe", tDirectory, "TestUpdater.exe", Global.CommandLineArgs);
+        }
 
-            if (!tSuccess) return;
+        private async void btnNotes_Click(object sender, EventArgs e)
+        {
+            await ShowNotesAsync();
+        }
+
+        private async void UpExec_InitialisationCompleted(bool success)
+        {
+            if (!success) return;
 
             upExec.Add(SAApplicationType.KillProcess);
             upExec.Add(SAApplicationType.Download);
@@ -63,25 +67,8 @@ namespace SAUpdateInstaller
 
             btnNotes.Visible = upExec.HasNotes;
 
-            upExec.CloseInstaller += Close;
-        }
-
-        private void frmMain_Shown(object sender, EventArgs e)
-        {
-            Application.DoEvents();
-
-            upExec.ShowFirst();
+            await upExec.ShowFirstAsync();
             pnlInstall.Visible = true;
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btnNotes_Click(object sender, EventArgs e)
-        {
-            ShowNotes();
         }
 
         private void upExec_InstallCompleted(bool success)
@@ -119,19 +106,14 @@ namespace SAUpdateInstaller
 
         #region Methods
 
-        private void ShowInstaller()
-        {
-            pnlInstall.Visible = true;
-        }
-
-        private void ShowNotes()
+        private async Task ShowNotesAsync()
         {
             pnlInstall.Visible = false;
             pnlNotes.Visible = true;
 
             if (!mHasLoadedNotes)
             {
-                VersionNotes.LoadNotes();
+                await VersionNotes.LoadNotesAsync();
                 mHasLoadedNotes = true;
             }
         }

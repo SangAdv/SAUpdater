@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SangAdv.Updater.Client
 {
-    public class SAUpdaterFTPRepository : ASAUpdaterFTPBaseRepository
+    internal class SAUpdaterFTPRepository : ASAUpdaterFTPBaseRepository
     {
         #region Variables
 
@@ -79,12 +79,12 @@ namespace SangAdv.Updater.Client
 
         #endregion Not Implemeneted in Client
 
-        public override string DownloadFileContents(string remoteDirectory, string remoteFileName)
+        public override async Task<string> DownloadFileContentsAsync(string remoteDirectory, string remoteFileName)
         {
             Error.ClearErrorMessage();
             try
             {
-                return mDownload.DownloadFileToString(remoteDirectory, remoteFileName);
+                return await mDownload.DownloadFileToStringAsync(remoteDirectory, remoteFileName);
             }
             catch (Exception ex)
             {
