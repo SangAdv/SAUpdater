@@ -1,5 +1,4 @@
-﻿using SangAdv.Updater;
-using SangAdv.Updater.Client;
+﻿using SangAdv.Updater.Client;
 using SangAdv.Updater.Client.Properties;
 using SangAdv.Updater.Common;
 using System;
@@ -12,12 +11,6 @@ namespace SAUpdateInstaller
 {
     public partial class frmMain : Form
     {
-        #region Variables
-
-        private bool mHasLoadedNotes = false;
-
-        #endregion Variables
-
         #region Constructor
 
         public frmMain()
@@ -46,6 +39,8 @@ namespace SAUpdateInstaller
             upExec.Logo = Resources.Logo;
             upExec.InstallerVersion = Application.ProductVersion;
 
+            upExec.AddDefaultModules();
+
             await upExec.InitialiseAsync(SAUpdaterWinOSVersion.Win7, SAUpdaterFrameworkVersions.Version45,
                 @"http://repo.sanguine.online/applications/", "saupdaterwin", "SAUpdater", "SAUpdater.exe", tDirectory,
                 "updater.exe", Global.CommandLineArgs);
@@ -64,14 +59,6 @@ namespace SAUpdateInstaller
 
         private void UpExec_InitialisationCompleted(bool success)
         {
-            if (!success) return;
-
-            upExec.Add(SAApplicationType.KillProcess);
-            upExec.Add(SAApplicationType.Download);
-            upExec.Add(SAApplicationType.DownloadFiles);
-            upExec.Add(SAApplicationType.Install);
-            upExec.Add(SAApplicationType.InstallEnd);
-
             btnNotes.Visible = upExec.HasNotes;
         }
 
@@ -109,11 +96,7 @@ namespace SAUpdateInstaller
             pnlInstall.Visible = false;
             pnlNotes.Visible = true;
 
-            if (!mHasLoadedNotes)
-            {
-                await VersionNotes.LoadNotesAsync();
-                mHasLoadedNotes = true;
-            }
+            await VersionNotes.LoadNotesAsync();
         }
 
         private void HideNotes()

@@ -49,15 +49,15 @@ namespace SangAdv.Updater.Client
             mQueue.Add(tNewIndex, control);
         }
 
-        public void Add(SAApplicationType applicationType)
+        public void Add(SAUpdaterModuleType applicationType)
         {
             switch (applicationType)
             {
-                case SAApplicationType.KillProcess: Add(new ucKillProcess()); break;
-                case SAApplicationType.Download: Add(new ucDownload()); break;
-                case SAApplicationType.DownloadFiles: Add(new ucDownloadFiles()); break;
-                case SAApplicationType.Install: Add(new ucInstall()); break;
-                case SAApplicationType.InstallEnd: Add(new ucEnd()); break;
+                case SAUpdaterModuleType.KillProcess: Add(new ucKillProcess()); break;
+                case SAUpdaterModuleType.Download: Add(new ucDownload()); break;
+                case SAUpdaterModuleType.DownloadFiles: Add(new ucDownloadFiles()); break;
+                case SAUpdaterModuleType.Install: Add(new ucInstall()); break;
+                case SAUpdaterModuleType.InstallEnd: Add(new ucEnd()); break;
             }
         }
 

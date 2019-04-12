@@ -1,6 +1,6 @@
 ﻿namespace SangAdv.Updater
 {
-    public enum SAApplicationType
+    public enum SAUpdaterModuleType
     {
         Download = 1,
         DownloadFiles = 2,

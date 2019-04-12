@@ -1,5 +1,6 @@
 ﻿using SangAdv.Updater.Common;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -44,6 +45,8 @@ namespace SangAdv.Updater.Client
         private Image mLogo;
         private string mLicense = string.Empty;
         private bool mLicenseScrollBars = false;
+
+        private List<object> mModules = new List<object>();
 
         #endregion Variables
 
@@ -112,34 +115,29 @@ namespace SangAdv.Updater.Client
 
         #region Methods
 
-        public void Add(ucBaseControl control) => mNavigation.Add(control);
+        public void AddModule(ucBaseControl control) => mModules.Add(control);
 
-        public void Add(SAApplicationType applicationType) => mNavigation.Add(applicationType);
+        public void AddModule(SAUpdaterModuleType applicationType) => mModules.Add(applicationType);
 
-        public async Task<bool> ShowFirstAsync()
+        public void AddDefaultModules()
         {
-            //SAUpdaterDebugLog.Add($"SAUpdaterGlobal.IsInitialised: {SAUpdaterGlobal.IsInitialised}", "SAUpdaterExecute", "ShowFirst");
-
-            if (!SAUpdaterGlobal.IsInitialised)
-            {
-                await ProcessInitialisationErrorAsync();
-                return false;
-            }
-
-            if (mNavigation.Count == 0)
-            {
-                await mNavigation.DisplayErrorAsync("Error Occurred", string.IsNullOrEmpty(mError.Message) ? "There are no views defined for navigation" : mError.Message, SAUpdaterStatusIcon.Warning);
-                return false;
-            }
-
-            await mNavigation.ShowFirstAsync();
-            InstallStarted();
-            return true;
+            AddModule(SAUpdaterModuleType.KillProcess);
+            AddModule(SAUpdaterModuleType.Download);
+            AddModule(SAUpdaterModuleType.DownloadFiles);
+            AddModule(SAUpdaterModuleType.Install);
+            AddModule(SAUpdaterModuleType.InstallEnd);
         }
 
         public async Task InitialiseAsync(SAUpdaterWinOSVersion osVersion, SAUpdaterFrameworkVersions framework, string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename, string[] commandlineOptions = null)
         {
             mError.ClearErrorMessage();
+
+            checkErrors();
+            if (mError.HasError)
+            {
+                InitialisationCompleted(false);
+                return;
+            }
 
             var repository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
             var client = new SAUpdaterWinClient();
@@ -162,7 +160,7 @@ namespace SangAdv.Updater.Client
                 if (string.IsNullOrEmpty(f.SelectedFolder))
                 {
                     mError = new SAUpdaterEventArgs("An installation folder was not selected", SAUpdaterResults.FilesFolderMissing);
-                    await ProcessInitialisationErrorAsync();
+                    await processInitialisationErrorAsync();
                     InitialisationCompleted(false);
                     return;
                 }
@@ -176,87 +174,10 @@ namespace SangAdv.Updater.Client
             SAUpdaterGlobal.AddLog("SAUpdaterExecute", "Initialise", $"options.ApplicationFolder: {options.ApplicationFolder}");
             SAUpdaterGlobal.AddLog("SAUpdaterExecute", "Initialise", $"CanInstall: {Checker.CanInstall}");
 
-            var isDefaultInstaller = GetCurrentPath() == client.UpdateFolder;
-
             //Process the Initialisation results
             if (!Checker.CanInstall)
             {
-                //Check if it an architecture issue
-                if (!Checker.IsRequiredOSArchitecture)
-                {
-                    mError = new SAUpdaterEventArgs($"{options.ApplicationTitle} needs a 64Bit OS.", SAUpdaterResults.InvalidOSArchitecture);
-                    InitialisationCompleted(false);
-                    return;
-                }
-
-                //If a new update is not available, make sure the files were installed
-                if (Checker.Error.Result == SAUpdaterResults.NewUpdateNotAvailable)
-                {
-                    await repository.GetUpdateFileListAsync(Checker.NewApplicationVersion);
-                    if (repository.HasError)
-                    {
-                        mError = new SAUpdaterEventArgs("Could not retrieve update file list from repository", SAUpdaterResults.GeneralError);
-                        InitialisationCompleted(false);
-                        return;
-                    }
-
-                    client.UpdateFiles.Prepare(repository.UpdateFiles.List);
-                    mError = client.UpdateFiles.CheckAfterInstall();
-                    if (!mError.HasError)
-                    {
-                        mError = Checker.Error;
-                        InitialisationCompleted(false);
-                        return;
-                    }
-
-                    mError = new SAUpdaterEventArgs();
-                    Checker.Error = new SAUpdaterEventArgs();
-                }
-                else
-                {
-                    try
-                    {
-                        if (!options.IsUpdate & Checker.HasNewInstallerRelease & !isDefaultInstaller)
-                        {
-                            mNavigation.AddInstallInstaller(repository, client, options, Checker.ApplicationTitle);
-                        }
-                        else
-                        {
-                            switch (Checker.Error.Result)
-                            {
-                                case SAUpdaterResults.NotConnected:
-                                    mError = new SAUpdaterEventArgs($"Please connect to the internet to install {options.ApplicationTitle}.", SAUpdaterResults.NotConnected);
-                                    break;
-
-                                case SAUpdaterResults.InstallerUpdateAvailable:
-                                    mError = new SAUpdaterEventArgs("An installer update is available.", SAUpdaterResults.InstallerUpdateAvailable);
-                                    break;
-
-                                case SAUpdaterResults.InstallerNotAvailable:
-                                    mError = new SAUpdaterEventArgs("An installer can not be found.\nPlease contact support.", SAUpdaterResults.InstallerNotAvailable);
-                                    break;
-
-                                case SAUpdaterResults.MissingVersionFile:
-                                case SAUpdaterResults.NewUpdateNotAvailable:
-                                    mError = Checker.Error;
-                                    break;
-
-                                default:
-                                    mError = new SAUpdaterEventArgs($"Error: {Checker.ErrorMessage}", SAUpdaterResults.GeneralError);
-                                    break;
-                            }
-
-                            InitialisationCompleted(false);
-                            return;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        mError = new SAUpdaterEventArgs($"Undefined Error: {ex.Message}", SAUpdaterResults.GeneralError);
-                        InitialisationCompleted(false);
-                        return;
-                    }
-                }
+                if (await processCannotInstallAsync(repository, client, options)) return;
             }
 
             Checker.SetInstallerRequirements(osVersion, framework);
@@ -265,41 +186,38 @@ namespace SangAdv.Updater.Client
 
             SAUpdaterGlobal.IsInitialised = true;
 
-            InitialisationCompleted(true);
+            addModules();
+
+            var success = await showFirstAsync();
+            if (!success) mError.SetErrorMessage("Error showing first module");
+
+            InitialisationCompleted(success);
         }
 
         #endregion Methods
 
         #region Private Methods
 
-        private string GetCurrentPath()
+        private async Task<bool> showFirstAsync()
         {
-            var currentStartupPath = string.Empty;
-            try
+            if (!SAUpdaterGlobal.IsInitialised)
             {
-                currentStartupPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            }
-            catch
-            {
-                currentStartupPath = string.Empty;
+                await processInitialisationErrorAsync();
+                return false;
             }
 
-            if (string.IsNullOrEmpty(currentStartupPath))
+            if (mNavigation.Count == 0)
             {
-                try
-                {
-                    currentStartupPath = Application.StartupPath;
-                }
-                catch
-                {
-                    currentStartupPath = string.Empty;
-                }
+                await mNavigation.DisplayErrorAsync("Error Occurred", string.IsNullOrEmpty(mError.Message) ? "There are no views defined for navigation" : mError.Message, SAUpdaterStatusIcon.Warning);
+                return false;
             }
 
-            return currentStartupPath;
+            await mNavigation.ShowFirstAsync();
+            InstallStarted();
+            return true;
         }
 
-        private async Task ProcessInitialisationErrorAsync()
+        private async Task processInitialisationErrorAsync()
         {
             var tHeading = "Initialisation Error";
             var tMessage = "The control's data structure is not initialised";
@@ -354,6 +272,133 @@ namespace SangAdv.Updater.Client
                     break;
             }
             await mNavigation.DisplayErrorAsync(tHeading, tMessage, tIcon);
+        }
+
+        private async Task<bool> processCannotInstallAsync(ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client, SAUpdaterUpdateOptions options)
+        {
+            if (!Checker.IsRequiredOSArchitecture)
+            {
+                mError = new SAUpdaterEventArgs($"{options.ApplicationTitle} needs a 64Bit OS.", SAUpdaterResults.InvalidOSArchitecture);
+                InitialisationCompleted(false);
+                return true;
+            }
+
+            //If a new update is not available, make sure the files were installed
+            if (Checker.Error.Result == SAUpdaterResults.NewUpdateNotAvailable)
+            {
+                await repository.GetUpdateFileListAsync(Checker.NewApplicationVersion);
+                if (repository.HasError)
+                {
+                    mError = new SAUpdaterEventArgs("Could not retrieve update file list from repository", SAUpdaterResults.GeneralError);
+                    InitialisationCompleted(false);
+                    return true;
+                }
+
+                client.UpdateFiles.Prepare(repository.UpdateFiles.List);
+                mError = client.UpdateFiles.CheckAfterInstall();
+                if (!mError.HasError)
+                {
+                    mError = Checker.Error;
+                    InitialisationCompleted(false);
+                    return true;
+                }
+
+                mError = new SAUpdaterEventArgs();
+                Checker.Error = new SAUpdaterEventArgs();
+            }
+            else
+            {
+                try
+                {
+                    var isDefaultInstaller = getCurrentPath() == client.UpdateFolder;
+                    if (!options.IsUpdate & Checker.HasNewInstallerRelease & !isDefaultInstaller)
+                    {
+                        mNavigation.AddInstallInstaller(repository, client, options, Checker.ApplicationTitle);
+                    }
+                    else
+                    {
+                        switch (Checker.Error.Result)
+                        {
+                            case SAUpdaterResults.NotConnected:
+                                mError = new SAUpdaterEventArgs($"Please connect to the internet to install {options.ApplicationTitle}.", SAUpdaterResults.NotConnected);
+                                break;
+
+                            case SAUpdaterResults.InstallerUpdateAvailable:
+                                mError = new SAUpdaterEventArgs("An installer update is available.", SAUpdaterResults.InstallerUpdateAvailable);
+                                break;
+
+                            case SAUpdaterResults.InstallerNotAvailable:
+                                mError = new SAUpdaterEventArgs("An installer can not be found.\nPlease contact support.", SAUpdaterResults.InstallerNotAvailable);
+                                break;
+
+                            case SAUpdaterResults.MissingVersionFile:
+                            case SAUpdaterResults.NewUpdateNotAvailable:
+                                mError = Checker.Error;
+                                break;
+
+                            default:
+                                mError = new SAUpdaterEventArgs($"Error: {Checker.ErrorMessage}", SAUpdaterResults.GeneralError);
+                                break;
+                        }
+
+                        InitialisationCompleted(false);
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    mError = new SAUpdaterEventArgs($"Undefined Error: {ex.Message}", SAUpdaterResults.GeneralError);
+                    InitialisationCompleted(false);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private string getCurrentPath()
+        {
+            var currentStartupPath = string.Empty;
+            try
+            {
+                currentStartupPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            }
+            catch
+            {
+                currentStartupPath = string.Empty;
+            }
+
+            if (string.IsNullOrEmpty(currentStartupPath))
+            {
+                try
+                {
+                    currentStartupPath = Application.StartupPath;
+                }
+                catch
+                {
+                    currentStartupPath = string.Empty;
+                }
+            }
+
+            return currentStartupPath;
+        }
+
+        private void addModules()
+        {
+            foreach (var item in mModules)
+            {
+                if (item.GetType() == typeof(ucBaseControl)) mNavigation.Add((ucBaseControl)item);
+                else mNavigation.Add((SAUpdaterModuleType)item);
+            }
+        }
+
+        private void checkErrors()
+        {
+            if (mModules.Count == 0)
+            {
+                mError.SetErrorMessage("No install modules defined");
+                return;
+            }
         }
 
         #region Display Controls

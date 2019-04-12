@@ -240,7 +240,6 @@ namespace SAUpdateInstaller
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Installer";
             this.Load += new System.EventHandler(this.frmMain_Load);
-            this.Shown += new System.EventHandler(this.frmMain_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -12,6 +12,7 @@ namespace SangAdv.Updater.Client
         #region Variables
 
         private string mNotes = string.Empty;
+        private bool mHasloadedNotes = false;
 
         #endregion Variables
 
@@ -37,6 +38,8 @@ namespace SangAdv.Updater.Client
 
         public async Task LoadNotesAsync()
         {
+            if (mHasloadedNotes) return;
+
             if (!SAUpdaterGlobal.IsInitialised)
             {
                 rtbNotes.Text = $"Please initialise execution control before using notes control.";
@@ -61,6 +64,8 @@ namespace SangAdv.Updater.Client
                     rtbNotes.Text = $"The following error occured:\n{ex.Message}";
                 }
             }
+
+            mHasloadedNotes = true;
         }
     }
 }
