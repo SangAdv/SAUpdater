@@ -16,11 +16,14 @@ namespace Test
             btnDoUpdate.Visible = false;
             btnDoUpdate.Enabled = false;
             mUpdate.MessageChanged += displayMessage;
+
+            lblVersion.Text = $"Version: {MyVersion.Version}";
         }
 
         private async void Form1_Shown(object sender, EventArgs e)
         {
             var hasUpdate = await checkUpdateAsync();
+            displayMessage("");
             if (hasUpdate) doUpdate();
         }
 
@@ -80,6 +83,12 @@ namespace Test
         }
 
         private void btnDoUpdate_Click(object sender, EventArgs e)
+        {
+            mUpdate.UpdateApplication();
+            Close();
+        }
+
+        private void BtnDoUpdate_Click_1(object sender, EventArgs e)
         {
             mUpdate.UpdateApplication();
             Close();

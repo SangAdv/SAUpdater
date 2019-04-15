@@ -36,6 +36,7 @@
             this.txtB = new System.Windows.Forms.TextBox();
             this.txtA = new System.Windows.Forms.TextBox();
             this.btnSum = new System.Windows.Forms.Button();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnDoUpdate
@@ -46,6 +47,7 @@
             this.btnDoUpdate.TabIndex = 15;
             this.btnDoUpdate.Text = "Update";
             this.btnDoUpdate.UseVisualStyleBackColor = true;
+            this.btnDoUpdate.Click += new System.EventHandler(this.BtnDoUpdate_Click_1);
             // 
             // lblMessage
             // 
@@ -108,11 +110,21 @@
             this.btnSum.UseVisualStyleBackColor = true;
             this.btnSum.Click += new System.EventHandler(this.btnSum_Click);
             // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(9, 9);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(52, 13);
+            this.lblVersion.TabIndex = 16;
+            this.lblVersion.Text = "lblVersion";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.btnDoUpdate);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.lblMinus);
@@ -139,6 +151,7 @@
         private System.Windows.Forms.TextBox txtB;
         private System.Windows.Forms.TextBox txtA;
         private System.Windows.Forms.Button btnSum;
+        private System.Windows.Forms.Label lblVersion;
     }
 }
 
