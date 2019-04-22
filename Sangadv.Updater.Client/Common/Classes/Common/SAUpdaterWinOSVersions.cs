@@ -61,7 +61,8 @@ namespace SangAdv.Updater.Common
                     case 16299: InstalledOSVersion = SAUpdaterWinOSVersion.Win101709; break;
                     case 17134: InstalledOSVersion = SAUpdaterWinOSVersion.Win101803; break;
                     case 17763: InstalledOSVersion = SAUpdaterWinOSVersion.Win101809; break;
-                    case int n when n > 17763: InstalledOSVersion = SAUpdaterWinOSVersion.vNext; break;
+                    case 18362: InstalledOSVersion = SAUpdaterWinOSVersion.Win101903; break;
+                    case int n when n > 18362: InstalledOSVersion = SAUpdaterWinOSVersion.vNext; break;
                     default: InstalledOSVersion = SAUpdaterWinOSVersion.Unknown; break;
                 }
             }
@@ -82,6 +83,7 @@ namespace SangAdv.Updater.Common
             VersionList.Add((int)SAUpdaterWinOSVersion.Win101709, "Windows 10 Fall Creators Update (1709)");
             VersionList.Add((int)SAUpdaterWinOSVersion.Win101803, "Windows 10 April 2018 Update (1803)");
             VersionList.Add((int)SAUpdaterWinOSVersion.Win101809, "Windows 10 September 2018 Update (1809)");
+            VersionList.Add((int)SAUpdaterWinOSVersion.Win101903, "Windows 10 May 2019 Update (1903)");
             VersionList.Add((int)SAUpdaterWinOSVersion.vNext, "Windows 10 vNext");
         }
 
