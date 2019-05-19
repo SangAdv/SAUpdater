@@ -49,13 +49,16 @@ namespace SangAdv.Updater.Client
 
             if (SAUpdaterClient.Error.HasError)
             {
-                Error = SAUpdaterClient.Error;
-                return;
+                if (SAUpdaterClient.Error.Result == SAUpdaterResults.InstallerUpdateAvailable)
+                {
+                    DoInstallerUpdate = SAUpdaterClient.Installer.DoInstallerUpdate;
+                }
+                else
+                {
+                    Error = SAUpdaterClient.Error;
+                    return;
+                }
             }
-
-            DoInstallerUpdate = SAUpdaterClient.Installer.DoInstallerUpdate;
-            if (DoInstallerUpdate) return;
-
             HasNewApplicationRelease = SAUpdaterClient.Checker.HasNewApplicationRelease;
         }
 
