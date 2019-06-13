@@ -13,6 +13,10 @@ namespace SangAdv.Updater.Client
 
         #region Variables
 
+        private SAUpdaterFTPRepository mRepository;
+        private SAUpdaterWinClient mClient;
+        private SAUpdaterUpdateOptions mOptions;
+
         private bool mIsInitialised = false;
         private string mApplicationLaunchFolder = string.Empty;
 
@@ -34,18 +38,9 @@ namespace SangAdv.Updater.Client
 
         public async Task InitialiseAsync(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
         {
-            Error.ClearErrorMessage();
+            doInitialise(downloadServerUri, downloadServerFolder, applicationTitle, applicationLaunchFilename, applicationLaunchFolder, installerFilename);
 
-            MessageChanged("Checking for update ...");
-
-            mIsInitialised = true;
-            mApplicationLaunchFolder = applicationLaunchFolder;
-
-            var repository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
-            var client = new SAUpdaterWinClient();
-            var options = new SAUpdaterUpdateOptions { ApplicationTitle = applicationTitle, LaunchFilename = applicationLaunchFilename, ApplicationFolder = mApplicationLaunchFolder, ChooseApplicationFolder = true, InstallerFilename = installerFilename };
-
-            await SAUpdaterClient.InitialiseAsync(repository, client, options);
+            await SAUpdaterClient.InitialiseAsync(mRepository, mClient, mOptions);
 
             if (SAUpdaterClient.Error.HasError)
             {
@@ -62,17 +57,52 @@ namespace SangAdv.Updater.Client
             HasNewApplicationRelease = SAUpdaterClient.Checker.HasNewApplicationRelease;
         }
 
-        public void UpdateOptionsFromCommandLine()
+        public void Initialise(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
         {
+            doInitialise(downloadServerUri, downloadServerFolder, applicationTitle, applicationLaunchFilename, applicationLaunchFolder, installerFilename);
+
+            SAUpdaterClient.Initialise(mRepository, mClient, mOptions);
+
+            if (SAUpdaterClient.Error.HasError)
+            {
+                if (SAUpdaterClient.Error.Result == SAUpdaterResults.InstallerUpdateAvailable)
+                {
+                    DoInstallerUpdate = SAUpdaterClient.Installer.DoInstallerUpdate;
+                }
+                else
+                {
+                    Error = SAUpdaterClient.Error;
+                    return;
+                }
+            }
+            HasNewApplicationRelease = SAUpdaterClient.Checker.HasNewApplicationRelease;
         }
 
-        public async Task<bool> UpdateInstaller()
+        //public void UpdateOptionsFromCommandLine()
+        //{
+        //}
+
+        public async Task<bool> UpdateInstallerAsync()
         {
             if (!DoInstallerUpdate) return false;
             if (!mIsInitialised) return false;
 
             MessageChanged("Doing Installer update ...");
-            var tSuccess = await SAUpdaterClient.Installer.Update();
+            var tSuccess = await SAUpdaterClient.Installer.UpdateAsync();
+            if (!tSuccess) return false;
+
+            HasNewApplicationRelease = SAUpdaterClient.Checker.HasNewApplicationRelease;
+
+            return true;
+        }
+
+        public bool UpdateInstaller()
+        {
+            if (!DoInstallerUpdate) return false;
+            if (!mIsInitialised) return false;
+
+            MessageChanged("Doing Installer update ...");
+            var tSuccess = SAUpdaterClient.Installer.Update();
             if (!tSuccess) return false;
 
             HasNewApplicationRelease = SAUpdaterClient.Checker.HasNewApplicationRelease;
@@ -87,6 +117,20 @@ namespace SangAdv.Updater.Client
 
             SAUpdaterClient.Checker.StartUpdate(clo);
             return true;
+        }
+
+        private void doInitialise(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
+        {
+            Error.ClearErrorMessage();
+
+            MessageChanged("Checking for update ...");
+
+            mIsInitialised = true;
+            mApplicationLaunchFolder = applicationLaunchFolder;
+
+            mRepository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
+            mClient = new SAUpdaterWinClient();
+            mOptions = new SAUpdaterUpdateOptions { ApplicationTitle = applicationTitle, LaunchFilename = applicationLaunchFilename, ApplicationFolder = mApplicationLaunchFolder, ChooseApplicationFolder = true, InstallerFilename = installerFilename };
         }
 
         #endregion Methods

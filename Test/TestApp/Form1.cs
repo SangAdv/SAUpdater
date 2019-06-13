@@ -57,7 +57,7 @@ namespace Test
 
             if (mUpdate.DoInstallerUpdate)
             {
-                var success = await mUpdate.UpdateInstaller();
+                var success = await mUpdate.UpdateInstallerAsync();
                 if (!success)
                 {
                     displayMessage("Error doing installer update");

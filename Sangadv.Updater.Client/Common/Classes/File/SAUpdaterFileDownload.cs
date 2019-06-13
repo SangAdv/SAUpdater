@@ -82,6 +82,35 @@ namespace SangAdv.Updater.Common
             return !HasErrors;
         }
 
+        public bool DownloadFile(string remoteDirectory, string remoteFile, string destinationFilePath)
+        {
+            Error.ClearErrorMessage();
+
+            mProgress = 0;
+
+            using (var client = new WebClient())
+            {
+                if (mRequiresAuthentication) client.Credentials = new NetworkCredential(mUser, mPass);
+                client.DownloadFileCompleted += Completed;
+                client.DownloadProgressChanged += DownloadProgress;
+
+                try
+                {
+                    client.DownloadFileTaskAsync(GetFullUri(remoteDirectory, remoteFile), destinationFilePath);
+                }
+                catch (WebException ex)
+                {
+                    Error.SetErrorMessage(ex.Message);
+                }
+
+                client.DownloadFileCompleted -= Completed;
+                client.DownloadProgressChanged -= DownloadProgress;
+            }
+
+            ProgressChanged(100);
+            return !HasErrors;
+        }
+
         public async Task<string> DownloadFileToStringAsync(string remoteDirectory, string remoteFile)
         {
             Error.ClearErrorMessage();

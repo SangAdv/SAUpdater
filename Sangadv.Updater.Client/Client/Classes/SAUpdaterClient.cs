@@ -59,6 +59,41 @@ namespace SangAdv.Updater.Client
             MessageChanged(string.Empty);
         }
 
+        internal static void Initialise(ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client, SAUpdaterUpdateOptions options)
+        {
+            if (IsInitialised) return;
+
+            Error.ClearErrorMessage();
+
+            //Process the commandline arguments
+            if (!SAUpdaterGlobal.Initialise(repository, client, options))
+            {
+                Error = SAUpdaterGlobal.Error;
+                MessageChanged($"{options.ApplicationTitle} can not be installed");
+                return;
+            }
+
+            if (Error.HasError) return;
+
+            IsInitialised = true;
+
+            Installer = new SAUpdaterInstaller();
+            if (Installer.HasError)
+            {
+                Error = Installer.Error;
+                return;
+            }
+
+            Installer.CheckHasInstaller();
+            if (Installer.HasError) Error = Installer.Error;
+
+            MessageChanged(string.Empty);
+
+            Checker = new SAUpdaterCheck();
+
+            MessageChanged(string.Empty);
+        }
+
         #endregion Methods
     }
 }

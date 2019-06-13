@@ -25,7 +25,7 @@ namespace ClientTest
 
             if (Update.DoInstallerUpdate)
             {
-                var success = await Update.UpdateInstaller();
+                var success = await Update.UpdateInstallerAsync();
 
             }
         }

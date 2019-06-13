@@ -42,6 +42,11 @@ namespace SangAdv.Updater.Master
             throw new NotImplementedException();
         }
 
+        public override string DownloadFileContents(string remoteDirectory, string remoteFileName)
+        {
+            throw new NotImplementedException();
+        }
+
         public override async Task<bool> DownloadFileAsync(string remoteDirectory, string remoteFileName, string destinationFilename)
         {
             try
@@ -55,6 +60,11 @@ namespace SangAdv.Updater.Master
             {
                 return false;
             }
+        }
+
+        public override bool DownloadFile(string remoteDirectory, string remoteFileName, string destinationFilename)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion Not Implemented in Master

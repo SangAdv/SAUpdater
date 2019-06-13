@@ -51,6 +51,30 @@ namespace SangAdv.Updater.Common
             return true;
         }
 
+        internal static bool Initialise(ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client, SAUpdaterUpdateOptions options)
+        {
+            if (IsInitialised) return true;
+
+            Error.ClearErrorMessage();
+
+            PrepareIgnoreList();
+
+            InitialiseLocals(options, repository, client);
+            if (Error.HasError) return false;
+
+            mlogger = new SAUpdaterLogger(client.LoggingFolder);
+
+            Connected = repository.Connected(true);
+            if (!Connected)
+            {
+                Error = new SAUpdaterEventArgs($"Please connect to the internet to install {options.ApplicationTitle}.", SAUpdaterResults.NotConnected);
+                return false;
+            }
+
+            IsInitialised = true;
+            return true;
+        }
+
         public static void AddLog(string className, string methodName, string message)
         {
             mlogger?.Add(className, methodName, message);
@@ -62,6 +86,50 @@ namespace SangAdv.Updater.Common
         }
 
         private static async Task InitialiseLocalsAsync(SAUpdaterUpdateOptions options, ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client)
+        {
+            InitialiseLocalVariables(options, repository, client);
+
+            //Get repository update definition
+            if (!await repository.GetUpdateDefinitionAsync())
+            {
+                Error = new SAUpdaterEventArgs("Could not read update definition", SAUpdaterResults.MissingVersionFile);
+                return;
+            }
+
+            AddLog("SAUpdaterCommon", "SAUpdaterCommon", $"Repository Installer Version: {repository.UpdateDefinition.InstallerVersion}");
+
+            if (!repository.HasUpdateDefinition)
+            {
+                Error = new SAUpdaterEventArgs("Could not read update definition", SAUpdaterResults.MissingVersionFile);
+                return;
+            }
+
+            IsInitialised = true;
+        }
+
+        private static void InitialiseLocals(SAUpdaterUpdateOptions options, ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client)
+        {
+            InitialiseLocalVariables(options, repository, client);
+
+            //Get repository update definition
+            if (!repository.GetUpdateDefinition())
+            {
+                Error = new SAUpdaterEventArgs("Could not read update definition", SAUpdaterResults.MissingVersionFile);
+                return;
+            }
+
+            AddLog("SAUpdaterCommon", "SAUpdaterCommon", $"Repository Installer Version: {repository.UpdateDefinition.InstallerVersion}");
+
+            if (!repository.HasUpdateDefinition)
+            {
+                Error = new SAUpdaterEventArgs("Could not read update definition", SAUpdaterResults.MissingVersionFile);
+                return;
+            }
+
+            IsInitialised = true;
+        }
+
+        private static void InitialiseLocalVariables(SAUpdaterUpdateOptions options, ASAUpdaterRepositoryBase repository, ASAUpdaterClientBase client)
         {
             //==================================================
             //Do this first - Required by the Global variables
@@ -88,25 +156,7 @@ namespace SangAdv.Updater.Common
             if (client.ErrorMessage != string.Empty)
             {
                 Error.SetErrorMessage(client.ErrorMessage);
-                return;
             }
-
-            //Get repository update definition
-            if (!await repository.GetUpdateDefinitionAsync())
-            {
-                Error = new SAUpdaterEventArgs("Could not read update definition", SAUpdaterResults.MissingVersionFile);
-                return;
-            }
-
-            AddLog("SAUpdaterCommon", "SAUpdaterCommon", $"Repository Installer Version: {repository.UpdateDefinition.InstallerVersion}");
-
-            if (!repository.HasUpdateDefinition)
-            {
-                Error = new SAUpdaterEventArgs("Could not read update definition", SAUpdaterResults.MissingVersionFile);
-                return;
-            }
-
-            IsInitialised = true;
         }
 
         private static void PrepareIgnoreList()

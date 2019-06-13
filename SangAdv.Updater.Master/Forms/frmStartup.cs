@@ -73,7 +73,7 @@ namespace SangAdv.Updater.Master
 
             if (mUpdate.DoInstallerUpdate)
             {
-                var tSuccess = await mUpdate.UpdateInstaller();
+                var tSuccess = await mUpdate.UpdateInstallerAsync();
                 if (!tSuccess)
                 {
                     DisplayMessage("Installer update failed ...");

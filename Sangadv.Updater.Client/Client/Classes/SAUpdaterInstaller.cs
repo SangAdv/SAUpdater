@@ -89,7 +89,7 @@ namespace SangAdv.Updater.Client
             }
         }
 
-        public async Task<bool> Update()
+        public async Task<bool> UpdateAsync()
         {
             Error.ClearErrorMessage();
             //Download the compressed installer file
@@ -101,6 +101,36 @@ namespace SangAdv.Updater.Client
                 return false;
             }
 
+            return completeUpdate();
+        }
+
+        public bool Update()
+        {
+            Error.ClearErrorMessage();
+            //Download the compressed installer file
+            MessageChanged("Downloading installer archive ...");
+            DownloadInstaller();
+            if (HasError)
+            {
+                MessageChanged($"Error occurred: {ErrorMessage}");
+                return false;
+            }
+
+            return completeUpdate();
+        }
+
+        public void SetInstallerRequirements(SAUpdaterWinOSVersion osVersion, SAUpdaterFrameworkVersions framework)
+        {
+            InstallerRequiredFramework = framework;
+            InstallerRequiredOsVersion = osVersion;
+        }
+
+        #endregion Methods
+
+        #region Private Methods
+
+        private bool completeUpdate()
+        {
             //Extract the installer to a temp file
             MessageChanged("Extracting installer archive ...");
             ExtractInstaller();
@@ -127,16 +157,6 @@ namespace SangAdv.Updater.Client
             return Error.IsSuccess;
         }
 
-        public void SetInstallerRequirements(SAUpdaterWinOSVersion osVersion, SAUpdaterFrameworkVersions framework)
-        {
-            InstallerRequiredFramework = framework;
-            InstallerRequiredOsVersion = osVersion;
-        }
-
-        #endregion Methods
-
-        #region Private Methods
-
         private bool getHasNewInstaller()
         {
             if (!File.Exists(SAUpdaterGlobal.Client.FullInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename))) return true;
@@ -155,13 +175,40 @@ namespace SangAdv.Updater.Client
 
         private async Task DownloadInstallerAsync()
         {
-            var t = SAUpdaterGlobal.Client.CompressedInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename);
+            //var t = SAUpdaterGlobal.Client.CompressedInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename);
 
             if (File.Exists(SAUpdaterGlobal.Client.CompressedInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename))) File.Delete(SAUpdaterGlobal.Client.CompressedInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename));
 
             SAUpdaterGlobal.Repository.FileDownloadProgressChanged += RaiseFileDownloadProgressChangedEvent;
 
             await SAUpdaterGlobal.Repository.DownloadFileAsync(SAUpdaterGlobal.Repository.RepositoryDownloadFolder, $"{SAUpdaterGlobal.Options.InstallerFilename}.ZIP", SAUpdaterGlobal.Client.CompressedInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename));
+
+            SAUpdaterGlobal.Repository.FileDownloadProgressChanged -= RaiseFileDownloadProgressChangedEvent;
+
+            if (SAUpdaterGlobal.Repository.HasError)
+            {
+                Error = SAUpdaterGlobal.Repository.Error;
+                return;
+            }
+
+            if (!File.Exists(SAUpdaterGlobal.Client.CompressedInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename)))
+            {
+                Error = new SAUpdaterEventArgs("Failed to download installer", SAUpdaterResults.FilesFolderMissing);
+                return;
+            }
+
+            if (SAUpdaterGlobal.Client.CompressedInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename).GenerateFileMD5() != SAUpdaterGlobal.Repository.UpdateDefinition.InstallerCompressedMD5) Error = new SAUpdaterEventArgs("Installer signature does not match repository signature", SAUpdaterResults.DownloadError);
+        }
+
+        private void DownloadInstaller()
+        {
+            //var t = SAUpdaterGlobal.Client.CompressedInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename);
+
+            if (File.Exists(SAUpdaterGlobal.Client.CompressedInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename))) File.Delete(SAUpdaterGlobal.Client.CompressedInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename));
+
+            SAUpdaterGlobal.Repository.FileDownloadProgressChanged += RaiseFileDownloadProgressChangedEvent;
+
+            SAUpdaterGlobal.Repository.DownloadFile(SAUpdaterGlobal.Repository.RepositoryDownloadFolder, $"{SAUpdaterGlobal.Options.InstallerFilename}.ZIP", SAUpdaterGlobal.Client.CompressedInstallerFilename(SAUpdaterGlobal.Options.InstallerFilename));
 
             SAUpdaterGlobal.Repository.FileDownloadProgressChanged -= RaiseFileDownloadProgressChangedEvent;
 

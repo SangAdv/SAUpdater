@@ -114,6 +114,41 @@ namespace SangAdv.Updater.Client
             return tSuccess;
         }
 
+        public override string DownloadFileContents(string remoteDirectory, string remoteFileName)
+        {
+            Error.ClearErrorMessage();
+            try
+            {
+                return mDownload.DownloadFileToString(remoteDirectory, remoteFileName);
+            }
+            catch (Exception ex)
+            {
+                Error.SetErrorMessage(ex.Message);
+                return string.Empty;
+            }
+        }
+
+        public override bool DownloadFile(string remoteDirectory, string remoteFileName, string destinationFilename)
+        {
+            var tSuccess = false;
+            Error.ClearErrorMessage();
+            try
+            {
+                mDownload.ProgressChanged += RaiseFileDownloadProgressChangedEvent;
+
+                tSuccess = mDownload.DownloadFile(remoteDirectory, remoteFileName, destinationFilename);
+
+                mDownload.ProgressChanged -= RaiseFileDownloadProgressChangedEvent;
+            }
+            catch (Exception ex)
+            {
+                Error.SetErrorMessage(ex.Message);
+                tSuccess = false;
+            }
+
+            return tSuccess;
+        }
+
         #endregion Methods
     }
 }

@@ -173,6 +173,37 @@ namespace SangAdv.Updater.Common
             }
         }
 
+        public bool GetUpdateDefinition()
+        {
+            Error.ClearErrorMessage();
+            try
+            {
+                UpdateDefinition = new SAUpdateDefinitionItem();
+                var tResult = DownloadFileContents(RepositoryDefinitionsFolder, SAUpdaterConstants.RepositoryUpdateDefinitionFileName);
+
+                SAUpdaterGlobal.AddLog("ASAUpdaterRepositoryBase", "GetUpdateDefinition", $"Raw Update Definition: {tResult}");
+
+                if (string.IsNullOrEmpty(tResult))
+                {
+                    UpdateDefinition.Reset();
+                    Error.SetErrorMessage("Could not read repository update file");
+                    return false;
+                }
+
+                tResult = tResult.InflateString();
+                SAUpdaterGlobal.AddLog("ASAUpdaterRepositoryBase", "GetUpdateDefinition", $"Inflated Update Definition: {tResult}");
+
+                UpdateDefinition.FromString(tResult);
+                HasUpdateDefinition = true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Error.SetErrorMessage(ex.Message);
+                return false;
+            }
+        }
+
         #endregion Methods
 
         #region Abstract Methods
@@ -197,7 +228,11 @@ namespace SangAdv.Updater.Common
 
         public abstract Task<string> DownloadFileContentsAsync(string remoteDirectory, string remoteFileName);
 
+        public abstract string DownloadFileContents(string remoteDirectory, string remoteFileName);
+
         public abstract Task<bool> DownloadFileAsync(string remoteDirectory, string remoteFileName, string destinationFilename);
+
+        public abstract bool DownloadFile(string remoteDirectory, string remoteFileName, string destinationFilename);
 
         #endregion File
 

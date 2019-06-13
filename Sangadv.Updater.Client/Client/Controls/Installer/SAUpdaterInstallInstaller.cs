@@ -101,7 +101,7 @@ namespace SangAdv.Updater.Client
             SAUpdaterClient.Installer.FileDownloadProgressChanged += DisplayProgress;
             SAUpdaterClient.Installer.MessageChanged += DisplayMessage;
 
-            await SAUpdaterClient.Installer.Update();
+            await SAUpdaterClient.Installer.UpdateAsync();
 
             SAUpdaterClient.Installer.FileDownloadProgressChanged -= DisplayProgress;
             SAUpdaterClient.Installer.MessageChanged -= DisplayMessage;
