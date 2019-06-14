@@ -38,7 +38,7 @@ namespace SangAdv.Updater.Client
 
         public async Task InitialiseAsync(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
         {
-            doInitialise(downloadServerUri, downloadServerFolder, applicationTitle, applicationLaunchFilename, applicationLaunchFolder, installerFilename);
+            DoInitialise(downloadServerUri, downloadServerFolder, applicationTitle, applicationLaunchFilename, applicationLaunchFolder, installerFilename);
 
             await SAUpdaterClient.InitialiseAsync(mRepository, mClient, mOptions);
 
@@ -59,7 +59,7 @@ namespace SangAdv.Updater.Client
 
         public void Initialise(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
         {
-            doInitialise(downloadServerUri, downloadServerFolder, applicationTitle, applicationLaunchFilename, applicationLaunchFolder, installerFilename);
+            DoInitialise(downloadServerUri, downloadServerFolder, applicationTitle, applicationLaunchFilename, applicationLaunchFolder, installerFilename);
 
             SAUpdaterClient.Initialise(mRepository, mClient, mOptions);
 
@@ -119,7 +119,7 @@ namespace SangAdv.Updater.Client
             return true;
         }
 
-        private void doInitialise(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
+        private void DoInitialise(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
         {
             Error.ClearErrorMessage();
 

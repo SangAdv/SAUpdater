@@ -96,7 +96,7 @@ namespace SangAdv.Updater.Common
 
                 try
                 {
-                    client.DownloadFileTaskAsync(GetFullUri(remoteDirectory, remoteFile), destinationFilePath);
+                    client.DownloadFile(GetFullUri(remoteDirectory, remoteFile), destinationFilePath);
                 }
                 catch (WebException ex)
                 {

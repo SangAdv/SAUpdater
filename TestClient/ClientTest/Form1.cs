@@ -18,14 +18,14 @@ namespace ClientTest
             InitializeComponent();
         }
 
-        private async void SimpleButton1_Click(object sender, EventArgs e)
+        private void SimpleButton1_Click(object sender, EventArgs e)
         {
             var Update = new SAWinUpdate();
-            await Update.InitialiseAsync(@"http://repo.sanguine.online/applications/", "pharmatrackcore", "pharmatrack Core", "pharmatrack.exe", Application.StartupPath, "updater.exe");
+            Update.Initialise(@"http://repo.sanguine.online/applications/", "pharmatrackcore", "pharmatrack Core", "pharmatrack.exe", Application.StartupPath, "updater.exe");
 
             if (Update.DoInstallerUpdate)
             {
-                var success = await Update.UpdateInstallerAsync();
+                var success = Update.UpdateInstaller();
 
             }
         }
