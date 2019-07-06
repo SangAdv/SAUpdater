@@ -152,18 +152,19 @@ namespace SangAdv.Updater.Common
 
             mProgress = 0;
 
-            var tDataString = string.Empty;
             using (var client = new WebClient())
             {
                 if (mRequiresAuthentication) client.Credentials = new NetworkCredential(mUser, mPass);
 
                 try
                 {
-                    var data = client.OpenRead(GetFullUri(remoteDirectory, remoteFile));
-                    tDataString = new StreamReader(data).ReadToEnd();
-                    mCompleted = true;
-                    ProgressChanged(100);
-                    return tDataString;
+                    using (var tStream = new StreamReader(client.OpenRead(GetFullUri(remoteDirectory, remoteFile))))
+                    {
+                        var tDataString = tStream.ReadToEnd();
+                        mCompleted = true;
+                        ProgressChanged(100);
+                        return tDataString;
+                    }
                 }
                 catch (Exception ex)
                 {
