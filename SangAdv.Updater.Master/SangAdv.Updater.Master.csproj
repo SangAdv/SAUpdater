@@ -38,8 +38,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Common\SAUpdaterMasterCommon.cs" />
@@ -78,6 +80,12 @@
     </Compile>
     <Compile Include="Controls\Base\ucTemplate.designer.cs">
       <DependentUpon>ucTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Embedded Controls\eucAzureBlobRepository.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Embedded Controls\eucAzureBlobRepository.Designer.cs">
+      <DependentUpon>eucAzureBlobRepository.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Embedded Controls\eucFTPRepository.cs">
       <SubType>UserControl</SubType>
@@ -183,7 +191,10 @@
     <Compile Include="Models\Main Data\MasterDataFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository Templates\Azure Blob\SAUpdaterAzureBlobClient.cs" />
+    <Compile Include="Repository Templates\FTP\SAUpdaterFTPClient.cs" />
     <Compile Include="Repository Templates\FTP\SAUpdaterFTPRepository.cs" />
+    <Compile Include="Repository Templates\Azure Blob\SAUpdaterAzureBlobRepository.cs" />
     <EmbeddedResource Include="Controls\Application\ucApplication.resx">
       <DependentUpon>ucApplication.cs</DependentUpon>
     </EmbeddedResource>
@@ -195,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Application\ucVersion.resx">
       <DependentUpon>ucVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Embedded Controls\eucAzureBlobRepository.resx">
+      <DependentUpon>eucAzureBlobRepository.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Embedded Controls\eucFTPRepository.resx">
       <DependentUpon>eucFTPRepository.cs</DependentUpon>
@@ -306,12 +320,16 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
     </PackageReference>
+    <PackageReference Include="SangAdv.Connected">
+      <Version>2.7.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sangadv.Updater.Client\SangAdv.Updater.Client.csproj">
+    <ProjectReference Include="..\SangAdv.Updater.Client\SangAdv.Updater.Client.csproj">
       <Project>{574cd675-d2e5-4789-af9e-c5e217d352d4}</Project>
       <Name>SangAdv.Updater.Client</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

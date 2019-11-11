@@ -84,7 +84,7 @@ namespace SangAdv.Updater.Master
         public int AppStatus { get; set; } = (int)SAUpdaterAppStatus.New;
         public bool IsBackedUp { get; set; } = false;
         public bool HasDatabase { get; set; } = false;
-        public SAUpdaterRepositoryType RepositoryType { get; set; } = SAUpdaterRepositoryType.FTP;
+        public SAUpdaterRepositoryType RepositoryType { get; set; } = SAUpdaterRepositoryType.AzureBlob;
 
         public Dictionary<int, string> PublishedVersion { get; set; } = new Dictionary<int, string>();
 

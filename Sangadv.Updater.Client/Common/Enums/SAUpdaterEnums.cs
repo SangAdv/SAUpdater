@@ -2,7 +2,8 @@
 {
     public enum SAUpdaterRepositoryType : int
     {
-        FTP = 1
+        FTP = 1,
+        AzureBlob = 2
     }
 
     public enum SAUpdaterAppStatus : int

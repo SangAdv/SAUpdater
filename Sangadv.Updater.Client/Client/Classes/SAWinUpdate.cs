@@ -13,7 +13,9 @@ namespace SangAdv.Updater.Client
 
         #region Variables
 
-        private SAUpdaterFTPRepository mRepository;
+        //private SAUpdaterFTPRepository mRepository;
+
+        private SAUpdaterAzureBlobRepository mRepository;
         private SAUpdaterWinClient mClient;
         private SAUpdaterUpdateOptions mOptions;
 
@@ -128,7 +130,9 @@ namespace SangAdv.Updater.Client
             mIsInitialised = true;
             mApplicationLaunchFolder = applicationLaunchFolder;
 
-            mRepository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
+            //mRepository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
+
+            mRepository = new SAUpdaterAzureBlobRepository(downloadServerUri, downloadServerFolder);
             mClient = new SAUpdaterWinClient();
             mOptions = new SAUpdaterUpdateOptions { ApplicationTitle = applicationTitle, LaunchFilename = applicationLaunchFilename, ApplicationFolder = mApplicationLaunchFolder, ChooseApplicationFolder = true, InstallerFilename = installerFilename };
         }

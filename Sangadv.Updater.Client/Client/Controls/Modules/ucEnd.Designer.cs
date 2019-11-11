@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucEnd));
             this.pbUpdateStatus = new System.Windows.Forms.PictureBox();
             this.lblEndMessage = new System.Windows.Forms.Label();
             this.lblSuccess = new System.Windows.Forms.Label();
@@ -38,10 +37,10 @@
             // 
             // pbUpdateStatus
             // 
-            this.pbUpdateStatus.Image = ((System.Drawing.Image)(resources.GetObject("pbUpdateStatus.Image")));
+            this.pbUpdateStatus.Image = global::SangAdv.Updater.Client.Properties.Resources.ok_button;
             this.pbUpdateStatus.Location = new System.Drawing.Point(68, 72);
             this.pbUpdateStatus.Name = "pbUpdateStatus";
-            this.pbUpdateStatus.Size = new System.Drawing.Size(64, 64);
+            this.pbUpdateStatus.Size = new System.Drawing.Size(48, 48);
             this.pbUpdateStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pbUpdateStatus.TabIndex = 49;
             this.pbUpdateStatus.TabStop = false;
@@ -52,7 +51,7 @@
             this.lblEndMessage.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEndMessage.Location = new System.Drawing.Point(172, 116);
             this.lblEndMessage.Name = "lblEndMessage";
-            this.lblEndMessage.Size = new System.Drawing.Size(97, 17);
+            this.lblEndMessage.Size = new System.Drawing.Size(123, 23);
             this.lblEndMessage.TabIndex = 48;
             this.lblEndMessage.Text = "lblEndMessage";
             // 
@@ -62,7 +61,7 @@
             this.lblSuccess.Font = new System.Drawing.Font("Segoe UI Semilight", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSuccess.Location = new System.Drawing.Point(170, 69);
             this.lblSuccess.Name = "lblSuccess";
-            this.lblSuccess.Size = new System.Drawing.Size(91, 30);
+            this.lblSuccess.Size = new System.Drawing.Size(114, 37);
             this.lblSuccess.TabIndex = 47;
             this.lblSuccess.Text = "Success!";
             // 
@@ -85,14 +84,17 @@
             // 
             // ucEnd
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.ActionButtonWidth = 175;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnLaunch);
             this.Controls.Add(this.pbUpdateStatus);
             this.Controls.Add(this.lblEndMessage);
             this.Controls.Add(this.lblSuccess);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "ucEnd";
+            this.Size = new System.Drawing.Size(1244, 574);
             this.Controls.SetChildIndex(this.lblSuccess, 0);
             this.Controls.SetChildIndex(this.lblEndMessage, 0);
             this.Controls.SetChildIndex(this.pbUpdateStatus, 0);

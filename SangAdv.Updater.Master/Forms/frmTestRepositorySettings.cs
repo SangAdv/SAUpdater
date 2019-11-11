@@ -36,7 +36,7 @@ namespace SangAdv.Updater.Master
             if (tResult) tResult = await mRepository.DownloadTestFileAsync(mLocalTestFolder);
             if (tResult) tResult = mRepository.TestCleaningUp(mLocalTestFolder);
 
-            DisplayResult(!tResult ? $"Test FAILED!" : $"Test passed.");
+            DisplayResult(!tResult ? "Test FAILED!" : "Test passed.");
         }
 
         private void DisplayResult(string message, bool removeLastEntry = false)

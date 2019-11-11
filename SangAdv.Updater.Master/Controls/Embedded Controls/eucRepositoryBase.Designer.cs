@@ -33,10 +33,11 @@
             // 
             // btnTestSettings
             // 
-            this.btnTestSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTestSettings.Location = new System.Drawing.Point(919, 177);
+            this.btnTestSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTestSettings.Location = new System.Drawing.Point(1221, 214);
+            this.btnTestSettings.Margin = new System.Windows.Forms.Padding(4);
             this.btnTestSettings.Name = "btnTestSettings";
-            this.btnTestSettings.Size = new System.Drawing.Size(86, 23);
+            this.btnTestSettings.Size = new System.Drawing.Size(115, 28);
             this.btnTestSettings.TabIndex = 49;
             this.btnTestSettings.Text = "Test Settings";
             this.btnTestSettings.UseVisualStyleBackColor = true;
@@ -44,11 +45,12 @@
             // 
             // eucRepositoryBase
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnTestSettings);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "eucRepositoryBase";
-            this.Size = new System.Drawing.Size(1005, 200);
+            this.Size = new System.Drawing.Size(1340, 246);
             this.ResumeLayout(false);
 
         }

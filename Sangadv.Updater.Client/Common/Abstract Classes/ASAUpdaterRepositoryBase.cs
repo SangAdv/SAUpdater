@@ -30,6 +30,12 @@ namespace SangAdv.Updater.Common
 
         #endregion Variables
 
+        #region Abstract Properties
+
+        public abstract SAUpdaterRepositoryType RepositoryType { get; }
+
+        #endregion Abstract Properties
+
         #region Properties
 
         public string RepositoryBackupFolder => "backup";
@@ -45,9 +51,27 @@ namespace SangAdv.Updater.Common
 
         #region Methods
 
-        public string RepositoryVersionDefinitionsFolder(string selectedVersion) => Path.Combine(selectedVersion, "definitions");
+        public string RepositoryVersionDefinitionsFolder(string selectedVersion)
+        {
+            switch (RepositoryType)
+            {
+                case SAUpdaterRepositoryType.FTP: return Path.Combine(selectedVersion, "definitions");
+                case SAUpdaterRepositoryType.AzureBlob: return $"{selectedVersion}/definitions";
+            }
 
-        public string RepositoryVersionFilesFolder(string selectedVersion) => Path.Combine(selectedVersion, "files");
+            return null;
+        }
+
+        public string RepositoryVersionFilesFolder(string selectedVersion)
+        {
+            switch (RepositoryType)
+            {
+                case SAUpdaterRepositoryType.FTP: return Path.Combine(selectedVersion, "files");
+                case SAUpdaterRepositoryType.AzureBlob: return $"{selectedVersion}/files";
+            }
+
+            return null;
+        }
 
         public bool Connected(bool checkConnection)
         {
@@ -287,6 +311,14 @@ namespace SangAdv.Updater.Common
         public string ApplicationFolder { get; set; } = string.Empty;
         public string FTPUsername { get; set; } = string.Empty;
         public string FTPPassword { get; set; } = string.Empty;
+        public string FTPDownloadUri { get; set; } = @"http://www.google.com";
+    }
+
+    public class SAHAzureBlobRepositoryConfig
+    {
+        public string AzureBlobConnectionString { get; set; } = string.Empty;
+        public string AzureBlobContainerName { get; set; } = string.Empty;
+        public string ApplicationFolder { get; set; } = string.Empty;
         public string FTPDownloadUri { get; set; } = @"http://www.google.com";
     }
 }

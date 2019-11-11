@@ -71,6 +71,7 @@ namespace SangAdv.Updater.Master
             mRepositoryBase.UpdateDefinition.HasReleaseNotes = VersionHasNotes(!string.IsNullOrEmpty(cmbReleaseVersion.Text) ? cmbReleaseVersion.SelectedValue.Value<int>() : 0);
             mRepositoryBase.UpdateDefinition.HasPreReleaseNotes = VersionHasNotes(!string.IsNullOrEmpty(cmbPreReleaseVersion.Text) ? cmbPreReleaseVersion.SelectedValue.Value<int>() : 0);
             mRepositoryBase.UpdateDefinition.Is64BitOSRequired = mAppDataFile.Application.CurrentApplication.Requires64BitOS;
+            mRepositoryBase.UpdateDefinition.IntRepositoryType = mRepositoryBase.RepositoryType.Value<int>();
 
             mRepositoryBase.SetUpdateDefinition();
 
@@ -134,6 +135,10 @@ namespace SangAdv.Updater.Master
             {
                 case SAUpdaterRepositoryType.FTP:
                     mRepositoryBase = new SAUpdaterFTPRepository(mAppDataFile.Application.CurrentApplication.RepositorySettingsString);
+                    break;
+
+                case SAUpdaterRepositoryType.AzureBlob:
+                    mRepositoryBase = new SAUpdaterAzureBlobRepository(mAppDataFile.Application.CurrentApplication.RepositorySettingsString);
                     break;
 
                 default:

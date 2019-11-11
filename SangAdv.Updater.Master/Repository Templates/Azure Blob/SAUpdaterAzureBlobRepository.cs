@@ -5,32 +5,34 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SangAdv.Updater.Master
-
 {
-    public class SAUpdaterFTPRepository : ASAUpdaterFTPBaseRepository
+    public class SAUpdaterAzureBlobRepository : ASAUpdaterAzureBlobBaseRepository
     {
         #region Variables
 
-        private const string mFTPTestFolder = @"testfolder/";
-        private SAUpdaterFTPClient mFtpClient;
+        private SAUpdaterAzureBlobClient mAzureBlobClient;
 
         #endregion Variables
 
         #region Abstract Properties
 
-        public override Uri RepositoryRootFolderUri => new Uri(RepositoryConfig.FTPServer).AddUriSegment(RepositoryConfig.ApplicationFolder);
+        public override Uri RepositoryRootFolderUri
+        {
+            get { throw new NotImplementedException(); }
+        }
 
-        public override SAUpdaterRepositoryType RepositoryType => SAUpdaterRepositoryType.FTP;
+        public override SAUpdaterRepositoryType RepositoryType => SAUpdaterRepositoryType.AzureBlob;
 
         #endregion Abstract Properties
 
         #region Constructor
 
-        public SAUpdaterFTPRepository(string repositorySettings)
+        public SAUpdaterAzureBlobRepository(string repositorySettings)
         {
             mSettings.FromString(repositorySettings);
-            mFtpClient = new SAUpdaterFTPClient(RepositoryRootFolderUri, RepositoryConfig.FTPUsername, RepositoryConfig.FTPPassword);
-            mFtpClient.UploadProgressChanged += RaiseFileUploadProgressChangedEvent;
+            mAzureBlobClient = new SAUpdaterAzureBlobClient(RepositoryConfig.AzureBlobConnectionString, RepositoryConfig.AzureBlobContainerName, RepositoryConfig.ApplicationFolder);
+            //TODO - Fix cross threaded issue
+            //mAzureBlobClient.UploadProgressChanged += RaiseFileUploadProgressChangedEvent;
         }
 
         #endregion Constructor
@@ -53,9 +55,18 @@ namespace SangAdv.Updater.Master
         {
             try
             {
-                var tDlownloadUri = new Uri(new Uri(RepositoryConfig.FTPDownloadUri.FixURLDirectoryLink()), new Uri(RepositoryConfig.ApplicationFolder.FixURLDirectoryLink(), UriKind.Relative)).ToString();
+                var tMain = new Uri(RepositoryConfig.FTPDownloadUri.FixURLDirectoryLink());
+                var tContainer = new Uri(RepositoryConfig.AzureBlobContainerName.FixURLDirectoryLink(), UriKind.Relative);
+                var tFolder = new Uri(RepositoryConfig.ApplicationFolder.FixURLDirectoryLink(), UriKind.Relative);
+
+                tMain = new Uri(tMain, tContainer);
+
+                var tDlownloadUri = new Uri(tMain, tFolder).ToString();
                 var tDownload = new SAUpdaterFileDownload(tDlownloadUri);
-                await tDownload.DownloadFileAsync(mFTPTestFolder, "Test.html", destinationFilename);
+                await tDownload.DownloadFileAsync(mTestFolder, "Test.html".ToUpper(), destinationFilename);
+
+                if (tDownload.HasErrors) throw new Exception(tDownload.Error.Message);
+
                 return true;
             }
             catch
@@ -87,24 +98,26 @@ namespace SangAdv.Updater.Master
 
         public override bool FolderExists(string folder)
         {
-            return mFtpClient.DirectoryExists(folder);
+            return mAzureBlobClient.DirectoryExists(folder);
         }
 
         public override void CreateFolder(string folder)
         {
-            mFtpClient.CreateDirectory(folder);
+            mAzureBlobClient.CreateDirectory(folder);
         }
 
         public override bool UploadFile(string originFile, string destinationFolder, string destinationFile)
         {
-            return mFtpClient.UploadFile(originFile, destinationFolder, destinationFile);
+            return mAzureBlobClient.UploadFile(originFile, $"{mSettings.Settings.ApplicationFolder}/{destinationFolder}", destinationFile);
         }
 
         public override bool ReplaceFile(string remoteDirectory, string currentFileName, string newFileName)
         {
-            if (mFtpClient.FileExists(remoteDirectory, newFileName)) mFtpClient.DeleteFile(remoteDirectory, newFileName);
-            mFtpClient.RenameFile(remoteDirectory, currentFileName, newFileName);
-            return mFtpClient.FileExists(remoteDirectory, newFileName);
+            var tCloudDirectory = $"{mSettings.Settings.ApplicationFolder}/{remoteDirectory}";
+
+            if (mAzureBlobClient.FileExists(tCloudDirectory, newFileName)) mAzureBlobClient.DeleteFile(tCloudDirectory, newFileName);
+            mAzureBlobClient.RenameFile(tCloudDirectory, currentFileName, newFileName);
+            return mAzureBlobClient.FileExists(tCloudDirectory, newFileName);
         }
 
         public override bool UploadTestFile()
@@ -116,15 +129,15 @@ namespace SangAdv.Updater.Master
                 var tResult = false;
                 //Check if the directory exists
                 RaiseMessageChangedEvent("Check if FTP test directory exists .... ");
-                tResult = FolderExists(mFTPTestFolder);
+                tResult = FolderExists(mTestFolder);
                 RaiseMessageChangedEvent($"Check if FTP test directory exists .... {tResult}", true);
 
                 //Create the directory if it does not exist
                 if (!tResult)
                 {
                     RaiseMessageChangedEvent("Creating FTP test directory .... ");
-                    CreateFolder(mFTPTestFolder);
-                    tResult = !mFtpClient.HasError;
+                    CreateFolder(mTestFolder);
+                    tResult = !mAzureBlobClient.HasError;
                     RaiseMessageChangedEvent($"Creating FTP test directory .... {tResult}", true);
                 }
 
@@ -133,7 +146,7 @@ namespace SangAdv.Updater.Master
                 {
                     var tTestApp = Path.Combine(Application.StartupPath, "Test.html");
                     RaiseMessageChangedEvent($"Uploading the test file to FTP test directory .... ");
-                    tResult = UploadFile(tTestApp, mFTPTestFolder, "Test.html");
+                    tResult = UploadFile(tTestApp, mTestFolder, "Test.html");
                     RaiseMessageChangedEvent($"Uploading the test file to FTP test directory .... {tResult.ToString()}", true);
                 }
 
@@ -151,8 +164,10 @@ namespace SangAdv.Updater.Master
             var tResult = false;
             try
             {
-                string tLocalTestDirectory = Path.Combine(Application.StartupPath, localTestFolder);
-                string tLocalTestFile = Path.Combine(tLocalTestDirectory, "Test.html");
+                var tLocalTestDirectory = Path.Combine(Application.StartupPath, localTestFolder);
+                var tLocalTestFile = Path.Combine(tLocalTestDirectory, "Test.html");
+
+                var cloudDirectory = $"{mSettings.Settings.ApplicationFolder}/{mTestFolder}";
 
                 //Create local Test folder
                 RaiseMessageChangedEvent($"Creating local test directory .... ");
@@ -165,7 +180,7 @@ namespace SangAdv.Updater.Master
 
                 RaiseMessageChangedEvent($"Downloading the test file to local test directory .... ");
 
-                await DownloadFileAsync(mFTPTestFolder, "Test.html", tLocalTestFile);
+                await DownloadFileAsync(cloudDirectory, "Test.html", tLocalTestFile);
 
                 tResult = File.Exists(tLocalTestFile);
                 RaiseMessageChangedEvent($"Downloading the test file to local test directory .... {true}", true);
@@ -196,6 +211,7 @@ namespace SangAdv.Updater.Master
                 var tLocalTestDirectory = Path.Combine(Application.StartupPath, localTestFolder);
                 var tLocalTestFile = Path.Combine(tLocalTestDirectory, "Test.html");
 
+                var cloudDirectory = $"{mSettings.Settings.ApplicationFolder}/{mTestFolder}";
                 //=================================================================================================================================
                 //Delete local test file
                 RaiseMessageChangedEvent($"Delete local test file .... ");
@@ -216,19 +232,17 @@ namespace SangAdv.Updater.Master
                 RaiseMessageChangedEvent($"Delete local test directory .... {true}", true);
 
                 //=================================================================================================================================
-                //FTP Cleanup
-                var wFTP = new SAUpdaterFTPClient(RepositoryRootFolderUri, RepositoryConfig.FTPUsername, RepositoryConfig.FTPPassword);
-
+                //Cleanup
                 //Delete test FTP directory
                 RaiseMessageChangedEvent("Delete FTP test directory .... ");
-                if (wFTP.FileExists(mFTPTestFolder, "Test.html"))
+                if (mAzureBlobClient.FileExists(cloudDirectory, "Test.html".ToUpper()))
                 {
-                    wFTP.DeleteFile(mFTPTestFolder, "Test.html");
+                    mAzureBlobClient.DeleteFile(cloudDirectory, "Test.html".ToUpper());
                 }
 
                 RaiseMessageChangedEvent($"Delete FTP test directory .... {true}", true);
 
-                return !wFTP.FileExists(mFTPTestFolder, "Test.html");
+                return !mAzureBlobClient.FileExists(cloudDirectory, "Test.html".ToUpper());
             }
             catch (Exception ex)
             {
@@ -239,9 +253,9 @@ namespace SangAdv.Updater.Master
 
         public override bool CleanUp(string selectedVersion)
         {
-            var tSuccess = mFtpClient.RemoveDirectory(RepositoryVersionFilesFolder(selectedVersion));
+            var tSuccess = mAzureBlobClient.RemoveDirectory(RepositoryVersionFilesFolder(selectedVersion));
             if (!tSuccess) return false;
-            tSuccess = mFtpClient.RemoveDirectory(RepositoryVersionDefinitionsFolder(selectedVersion));
+            tSuccess = mAzureBlobClient.RemoveDirectory(RepositoryVersionDefinitionsFolder(selectedVersion));
             return tSuccess;
         }
 

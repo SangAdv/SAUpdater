@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SangAdv.Updater.Client
 {
-    internal class SAUpdaterFTPRepository : ASAUpdaterFTPBaseRepository
+    internal class SAUpdaterAzureBlobRepository : ASAUpdaterAzureBlobBaseRepository
     {
         #region Variables
 
@@ -16,13 +16,13 @@ namespace SangAdv.Updater.Client
 
         public override Uri RepositoryRootFolderUri => new Uri(RepositoryConfig.FTPDownloadUri);
 
-        public override SAUpdaterRepositoryType RepositoryType => SAUpdaterRepositoryType.FTP;
+        public override SAUpdaterRepositoryType RepositoryType => SAUpdaterRepositoryType.AzureBlob;
 
         #endregion Abstract Properties
 
         #region Constructor
 
-        public SAUpdaterFTPRepository(string downloadServerUri, string applicationFolder)
+        public SAUpdaterAzureBlobRepository(string downloadServerUri, string applicationFolder)
         {
             RepositoryConfig.FTPDownloadUri = new Uri(new Uri(downloadServerUri.FixURLDirectoryLink()), new Uri(applicationFolder.FixURLDirectoryLink(), UriKind.Relative)).ToString();
             mDownload = new SAUpdaterFileDownload(RepositoryRootFolderUri);
@@ -86,7 +86,7 @@ namespace SangAdv.Updater.Client
             Error.ClearErrorMessage();
             try
             {
-                return await mDownload.DownloadFileToStringAsync(remoteDirectory, remoteFileName);
+                return await mDownload.DownloadFileToStringAsync(remoteDirectory, remoteFileName.ToUpper());
             }
             catch (Exception ex)
             {
@@ -103,7 +103,7 @@ namespace SangAdv.Updater.Client
             {
                 mDownload.ProgressChanged += RaiseFileDownloadProgressChangedEvent;
 
-                tSuccess = await mDownload.DownloadFileAsync(remoteDirectory, remoteFileName, destinationFilename);
+                tSuccess = await mDownload.DownloadFileAsync(remoteDirectory, remoteFileName.ToUpper(), destinationFilename);
 
                 mDownload.ProgressChanged -= RaiseFileDownloadProgressChangedEvent;
             }
@@ -121,7 +121,7 @@ namespace SangAdv.Updater.Client
             Error.ClearErrorMessage();
             try
             {
-                return mDownload.DownloadFileToString(remoteDirectory, remoteFileName);
+                return mDownload.DownloadFileToString(remoteDirectory, remoteFileName.ToUpper());
             }
             catch (Exception ex)
             {
@@ -138,7 +138,7 @@ namespace SangAdv.Updater.Client
             {
                 mDownload.ProgressChanged += RaiseFileDownloadProgressChangedEvent;
 
-                tSuccess = mDownload.DownloadFile(remoteDirectory, remoteFileName, destinationFilename);
+                tSuccess = mDownload.DownloadFile(remoteDirectory, remoteFileName.ToUpper(), destinationFilename);
 
                 mDownload.ProgressChanged -= RaiseFileDownloadProgressChangedEvent;
             }

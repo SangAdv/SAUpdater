@@ -22,6 +22,12 @@
             set => IntRequiredOSVersion = (int)value;
         }
 
+        public SAUpdaterRepositoryType  RepositoryType
+        {
+            get => (SAUpdaterRepositoryType)IntRepositoryType;
+            set => IntRepositoryType = (int)value;
+        }
+
         public string NewApplicationVersion => getNewApplicationVersion();
 
         public bool IsPreRelease { get; private set; }

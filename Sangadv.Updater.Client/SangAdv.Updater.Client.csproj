@@ -155,6 +155,7 @@
     <Compile Include="Client\Forms\frmChooseFolder.Designer.cs">
       <DependentUpon>frmChooseFolder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Client\Repository Templates\SAUpdaterAzureBlobRepository.cs" />
     <Compile Include="Common\Abstract Classes\ASAUpdaterClientBase.cs" />
     <Compile Include="Common\Abstract Classes\ASAUpdaterClientFileList.cs" />
     <Compile Include="Common\Abstract Classes\ASAUpdaterClientFramework.cs" />
@@ -189,8 +190,8 @@
     <Compile Include="Common\Enums\Enums.cs" />
     <Compile Include="Common\Enums\SAUpdaterEnums.cs" />
     <Compile Include="Common\Extension Methods\ExtensionMethods.cs" />
+    <Compile Include="Common\Repository Templates\Azure Blob\ASAUpdaterAzureBlobBaseRepository.cs" />
     <Compile Include="Common\Repository Templates\FTP\ASAUpdaterFTPBaseRepository.cs" />
-    <Compile Include="Common\Repository Templates\FTP\SAUpdaterFTPClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Client\Repository Templates\SAUpdaterFTPRepository.cs" />
     <Compile Include="Client\Classes\SAWinUpdate.cs" />
@@ -296,5 +297,6 @@
       <Version>12.0.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,6 +16,7 @@
         public bool HasReleaseNotes { get; set; }
         public bool HasPreReleaseNotes { get; set; }
         public bool Is64BitOSRequired { get; set; }
+        public int IntRepositoryType { get; set; }
 
         #endregion Properties
 
@@ -42,6 +43,7 @@
             InstallerCompressedMD5 = string.Empty;
             InstallerMD5 = string.Empty;
             Is64BitOSRequired = false;
+            IntRepositoryType = (int) SAUpdaterRepositoryType.AzureBlob;
         }
 
         public override string ToString()
@@ -76,6 +78,7 @@
             HasReleaseNotes = a.HasReleaseNotes;
             HasPreReleaseNotes = a.HasPreReleaseNotes;
             Is64BitOSRequired = a.Is64BitOSRequired;
+            IntRepositoryType = a.IntRepositoryType;
         }
 
         #endregion Methods

@@ -83,7 +83,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Sangadv.Updater.Client\SangAdv.Updater.Client.csproj">
+    <ProjectReference Include="..\..\SangAdv.Updater.Client\SangAdv.Updater.Client.csproj">
       <Project>{574cd675-d2e5-4789-af9e-c5e217d352d4}</Project>
       <Name>SangAdv.Updater.Client</Name>
     </ProjectReference>

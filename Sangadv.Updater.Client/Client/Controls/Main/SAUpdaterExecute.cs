@@ -139,7 +139,9 @@ namespace SangAdv.Updater.Client
                 return;
             }
 
-            var repository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
+            //var repository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
+
+            var repository = new SAUpdaterAzureBlobRepository(downloadServerUri, downloadServerFolder);
             var client = new SAUpdaterWinClient();
             var options = new SAUpdaterUpdateOptions { ApplicationTitle = applicationTitle, LaunchFilename = applicationLaunchFilename, ApplicationFolder = applicationLaunchFolder, ChooseApplicationFolder = true, InstallerFilename = installerFilename };
             if (commandlineOptions != null) options.UpdateFromCommandLine(commandlineOptions);

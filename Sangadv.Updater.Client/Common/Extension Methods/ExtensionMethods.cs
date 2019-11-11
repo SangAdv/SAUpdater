@@ -206,14 +206,14 @@ namespace SangAdv.Updater.Common
             return urlLink.EndsWith("/") ? urlLink : $"{urlLink}/";
         }
 
-        internal static Uri FixURLDirectoryLink(this Uri urlLink)
+        public static Uri FixURLDirectoryLink(this Uri urlLink)
         {
             if (!urlLink.IsWellFormedOriginalString()) throw new Exception($"{urlLink} is not well formed");
             var url = urlLink.ToString();
             return url.EndsWith("/") ? urlLink : new Uri($"{url}/");
         }
 
-        internal static Uri AddUriParameter(this Uri urlLink, string urlParamater)
+        public static Uri AddUriParameter(this Uri urlLink, string urlParamater)
         {
             urlLink = urlLink.FixURLDirectoryLink();
             return new Uri(urlLink, urlParamater);

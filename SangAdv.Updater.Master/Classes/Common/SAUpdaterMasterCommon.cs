@@ -41,6 +41,9 @@ namespace SangAdv.Updater.Master
                 case SAUpdaterRepositoryType.FTP:
                     return new SAUpdaterFTPRepository(AppData.Application.CurrentApplication.RepositorySettingsString);
 
+                case SAUpdaterRepositoryType.AzureBlob:
+                    return new SAUpdaterAzureBlobRepository(AppData.Application.CurrentApplication.RepositorySettingsString);
+
                 default:
                     break;
             }

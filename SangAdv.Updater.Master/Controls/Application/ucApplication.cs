@@ -10,6 +10,8 @@ namespace SangAdv.Updater.Master
 
         private AppDataFile mAppDataFile = SAUpdaterMasterCommon.AppData;
         private eucRepositoryBase mRepositoryBase;
+        private SAUpdaterRepositoryType mStartRepositoryType = SAUpdaterRepositoryType.AzureBlob;
+        private bool mHasLoadedRepository = false;
 
         #endregion Variables
 
@@ -36,12 +38,15 @@ namespace SangAdv.Updater.Master
             LoadDirectories();
 
             ResetFields();
-            LoadRepositoryType();
 
             btnUpdate.Text = "Update";
             lblAppHeader.Text = $"Update Application: {mAppDataFile.Application.CurrentApplication.ApplicationTitle}";
 
             SetVariableDefaults();
+
+            LoadRepositoryType();
+            LoadRepositoryData();
+
             CheckValidEntries();
             RaiseButtonsEnabledEvent(btnUpdate.Enabled);
 
@@ -84,6 +89,7 @@ namespace SangAdv.Updater.Master
             mAppDataFile.Application.CurrentApplication.RequiredOSType = cmbOSType.SelectedValue.Value<int>();
             mAppDataFile.Application.CurrentApplication.RequiredOSVersion = cmbOSVersion.SelectedValue.Value<int>();
             mAppDataFile.Application.CurrentApplication.Requires64BitOS = chkRequire64BitOS.Checked;
+            mAppDataFile.Application.CurrentApplication.RepositoryType = (SAUpdaterRepositoryType)(cmbRepositoryType.SelectedValue.Value<int>());
         }
 
         private void LoadDirectories()
@@ -128,7 +134,16 @@ namespace SangAdv.Updater.Master
             var cbis = new ComboBoxItems();
             cbis.Add<SAUpdaterRepositoryType>();
             cmbRepositoryType.DataSource = cbis.Items;
-            if (cbis.Items.Count < 2) cmbRepositoryType.Enabled = false;
+            if (cbis.Items.Count < 2)
+            {
+                cmbRepositoryType.Enabled = false;
+            }
+            else
+            {
+                cmbRepositoryType.SelectedValue =
+                    mAppDataFile.Application.CurrentApplication.RepositoryType.Value<int>().ToString();
+            }
+            mHasLoadedRepository = true;
         }
 
         private void LoadOSTypes()
@@ -187,27 +202,38 @@ namespace SangAdv.Updater.Master
             CheckValidEntries();
         }
 
-        #endregion Private Methods
-
-        #region Process UI
-
-        private void cmbRepositoryType_SelectedValueChanged(object sender, EventArgs e)
+        private void LoadRepositoryData()
         {
             switch ((SAUpdaterRepositoryType)cmbRepositoryType.SelectedValue.Value<int>())
             {
                 case SAUpdaterRepositoryType.FTP:
                     mRepositoryBase = new eucFTPRepository();
-                    DisplayRepositoryControl();
+                    break;
+
+                case SAUpdaterRepositoryType.AzureBlob:
+                    mRepositoryBase = new eucAzureBlobRepository();
                     break;
 
                 default:
                     break;
             }
 
+            DisplayRepositoryControl();
+
             mRepositoryBase.ResetFields();
             mRepositoryBase.SetRepositoryDefinition(mAppDataFile.Application.CurrentApplication.RepositorySettingsString);
 
             mRepositoryBase.ValidityChanged += UpdateRepositoryValidity;
+        }
+
+        #endregion Private Methods
+
+        #region Process UI
+
+        private void cmbRepositoryType_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (!mHasLoadedRepository) return;
+            LoadRepositoryData();
         }
 
         private void btnChooseDirectory_Click(object sender, EventArgs e)
