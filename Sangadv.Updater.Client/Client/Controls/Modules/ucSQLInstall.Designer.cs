@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucSQLInstall));
             this.txtPWord = new System.Windows.Forms.TextBox();
             this.txtUName = new System.Windows.Forms.TextBox();
             this.Label5 = new System.Windows.Forms.Label();
@@ -165,11 +164,11 @@
             // 
             this.btnAction.Enabled = false;
             this.btnAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAction.Image = ((System.Drawing.Image)(resources.GetObject("btnAction.Image")));
+            this.btnAction.Image = global::SangAdv.Updater.Client.Properties.Resources.install_16px;
             this.btnAction.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAction.Location = new System.Drawing.Point(572, 271);
+            this.btnAction.Location = new System.Drawing.Point(588, 271);
             this.btnAction.Name = "btnAction";
-            this.btnAction.Size = new System.Drawing.Size(98, 24);
+            this.btnAction.Size = new System.Drawing.Size(82, 24);
             this.btnAction.TabIndex = 59;
             this.btnAction.Text = "Install";
             this.btnAction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

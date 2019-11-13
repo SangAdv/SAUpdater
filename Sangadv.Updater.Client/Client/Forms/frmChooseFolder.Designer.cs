@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmChooseFolder));
             this.btnDir = new System.Windows.Forms.Button();
             this.txtDir = new System.Windows.Forms.TextBox();
             this.btnAction = new System.Windows.Forms.Button();
@@ -67,7 +66,7 @@
             // 
             this.btnAction.Enabled = false;
             this.btnAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAction.Image = ((System.Drawing.Image)(resources.GetObject("btnAction.Image")));
+            this.btnAction.Image = global::SangAdv.Updater.Client.Properties.Resources.button_ok_16px;
             this.btnAction.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAction.Location = new System.Drawing.Point(521, 600);
             this.btnAction.Name = "btnAction";

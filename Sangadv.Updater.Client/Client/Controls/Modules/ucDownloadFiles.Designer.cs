@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucDownloadFiles));
             this.lblDownloadFile = new System.Windows.Forms.Label();
             this.btnRetry = new System.Windows.Forms.Button();
             this.pbTotalProgress = new SangAdv.Updater.Client.eucSAUpdaterProgressBar();
@@ -50,7 +49,7 @@
             // 
             this.btnRetry.Enabled = false;
             this.btnRetry.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRetry.Image = ((System.Drawing.Image)(resources.GetObject("btnRetry.Image")));
+            this.btnRetry.Image = global::SangAdv.Updater.Client.Properties.Resources.internet_refresh_16px;
             this.btnRetry.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnRetry.Location = new System.Drawing.Point(542, 271);
             this.btnRetry.Name = "btnRetry";
@@ -65,6 +64,7 @@
             this.pbTotalProgress.BackColour = System.Drawing.Color.DarkGray;
             this.pbTotalProgress.FillColour = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(114)))), ((int)(((byte)(198)))));
             this.pbTotalProgress.Location = new System.Drawing.Point(43, 124);
+            this.pbTotalProgress.Margin = new System.Windows.Forms.Padding(4);
             this.pbTotalProgress.MarqueeFillPercentage = 25;
             this.pbTotalProgress.MarqueeStepSize = 5;
             this.pbTotalProgress.Maximum = 100;
@@ -82,6 +82,7 @@
             this.pbDownloadProgress.BackColour = System.Drawing.Color.DarkGray;
             this.pbDownloadProgress.FillColour = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(114)))), ((int)(((byte)(198)))));
             this.pbDownloadProgress.Location = new System.Drawing.Point(43, 173);
+            this.pbDownloadProgress.Margin = new System.Windows.Forms.Padding(4);
             this.pbDownloadProgress.MarqueeFillPercentage = 25;
             this.pbDownloadProgress.MarqueeStepSize = 5;
             this.pbDownloadProgress.Maximum = 100;
@@ -107,7 +108,7 @@
             // 
             // ucDownloadFiles
             // 
-            this.ActionButtonImage = ((System.Drawing.Image)(resources.GetObject("$this.ActionButtonImage")));
+            this.ActionButtonImage = global::SangAdv.Updater.Client.Properties.Resources.button_arrow_right_16px;
             this.ActionButtonText = "Next";
             this.ActionButtonWidth = 65;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

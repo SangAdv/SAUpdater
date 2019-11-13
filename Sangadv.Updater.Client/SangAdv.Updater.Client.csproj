@@ -44,13 +44,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\Classes\SAUpdaterCheck.cs" />
@@ -281,22 +279,45 @@
     <None Include="Resources\Icon_16_SA_UP_EXEC.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\internet_download.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\OK.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ok_button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\process-delete2.png" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.2</Version>
+      <Version>12.0.3</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\button-ok%4016px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\internet-download%4016px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\internet-refresh%4016px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button-error%4016px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gear-filled-cancel-2%4016px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warning%4064px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button-arrow-right%4016px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\download%4016px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\install%4016px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\media-play-button%4016px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button-ok%4048px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button-cancel%4016px.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

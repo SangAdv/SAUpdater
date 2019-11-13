@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace SangAdv.Updater.Client
 {
     [ToolboxItem(false)]
-    public partial class ucDownload : ucBaseControl
+    public partial class ucDownload : ucBaseControl 
     {
         #region Constructor
 

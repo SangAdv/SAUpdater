@@ -55,11 +55,11 @@
             // 
             this.btnKill.Enabled = false;
             this.btnKill.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKill.Image = global::SangAdv.Updater.Client.Properties.Resources.process_delete2;
+            this.btnKill.Image = global::SangAdv.Updater.Client.Properties.Resources.gear_filled_cancel_2_16px;
             this.btnKill.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnKill.Location = new System.Drawing.Point(579, 271);
+            this.btnKill.Location = new System.Drawing.Point(595, 271);
             this.btnKill.Name = "btnKill";
-            this.btnKill.Size = new System.Drawing.Size(95, 24);
+            this.btnKill.Size = new System.Drawing.Size(79, 24);
             this.btnKill.TabIndex = 56;
             this.btnKill.Text = "Kill All";
             this.btnKill.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -68,7 +68,7 @@
             // 
             // ucKillProcess
             // 
-            this.ActionButtonImage = global::SangAdv.Updater.Client.Properties.Resources.process_delete2;
+            this.ActionButtonImage = global::SangAdv.Updater.Client.Properties.Resources.gear_filled_cancel_2_16px;
             this.ActionButtonText = "Kill All";
             this.ActionButtonVisible = false;
             this.ActionButtonWidth = 70;

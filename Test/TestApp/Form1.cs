@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SangAdv.Updater.Common;
 using TestApp.Common;
 
 namespace Test
@@ -53,7 +54,10 @@ namespace Test
 
         private async Task<bool> checkUpdateAsync()
         {
-            await mUpdate.InitialiseAsync(@"http://repo.sanguine.online/applications/", "Test", "Test", "TestApp.exe", Application.StartupPath, "TestUpdater.exe");
+            //await mUpdate.InitialiseAsync(@"http://repo.sanguine.online/applications/", "Test", "Test", "TestApp.exe", Application.StartupPath, "TestUpdater.exe", SAUpdaterRepositoryType.FTP);
+
+            await mUpdate.InitialiseAsync(@"https://pharmatracksa.blob.core.windows.net/", "install/Test", "Test",
+                "TestApp.exe", Application.StartupPath, "TestUpdater.exe", SAUpdaterRepositoryType.AzureBlob);
 
             if (mUpdate.DoInstallerUpdate)
             {

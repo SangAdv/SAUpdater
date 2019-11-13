@@ -70,12 +70,12 @@
             // 
             this.ImageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImageList1.ImageStream")));
             this.ImageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.ImageList1.Images.SetKeyName(0, "Error.png");
-            this.ImageList1.Images.SetKeyName(1, "ok_button.png");
+            this.ImageList1.Images.SetKeyName(0, "button-error@16px.png");
+            this.ImageList1.Images.SetKeyName(1, "button-ok@16px.png");
             // 
             // ucInstall
             // 
-            this.ActionButtonImage = ((System.Drawing.Image)(resources.GetObject("$this.ActionButtonImage")));
+            this.ActionButtonImage = global::SangAdv.Updater.Client.Properties.Resources.install_16px;
             this.ActionButtonWidth = 80;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

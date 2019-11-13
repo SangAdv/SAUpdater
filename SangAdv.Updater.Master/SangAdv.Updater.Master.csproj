@@ -318,7 +318,7 @@
       <Version>4.1.4</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.2</Version>
+      <Version>12.0.3</Version>
     </PackageReference>
     <PackageReference Include="SangAdv.Connected">
       <Version>2.7.0.1</Version>

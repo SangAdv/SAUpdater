@@ -39,7 +39,7 @@
             // 
             // pbUpdateStatus
             // 
-            this.pbUpdateStatus.Image = ((System.Drawing.Image)(resources.GetObject("pbUpdateStatus.Image")));
+            this.pbUpdateStatus.Image = global::SangAdv.Updater.Client.Properties.Resources.warning_64px;
             this.pbUpdateStatus.Location = new System.Drawing.Point(89, 98);
             this.pbUpdateStatus.Name = "pbUpdateStatus";
             this.pbUpdateStatus.Size = new System.Drawing.Size(64, 64);
@@ -71,13 +71,13 @@
             // 
             this.ilStatus.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilStatus.ImageStream")));
             this.ilStatus.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilStatus.Images.SetKeyName(0, "info.png");
-            this.ilStatus.Images.SetKeyName(1, "warning.png");
-            this.ilStatus.Images.SetKeyName(2, "stop.png");
+            this.ilStatus.Images.SetKeyName(0, "button-info@64px.png");
+            this.ilStatus.Images.SetKeyName(1, "warning@64px.png");
+            this.ilStatus.Images.SetKeyName(2, "close@64px.png");
             // 
             // ucError
             // 
-            this.ActionButtonImage = ((System.Drawing.Image)(resources.GetObject("$this.ActionButtonImage")));
+            this.ActionButtonImage = global::SangAdv.Updater.Client.Properties.Resources.button_cancel_16px;
             this.ActionButtonText = "Quit";
             this.ActionButtonWidth = 60;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

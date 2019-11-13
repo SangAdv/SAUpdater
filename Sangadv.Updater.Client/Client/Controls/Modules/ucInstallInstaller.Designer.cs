@@ -68,7 +68,7 @@
             // 
             // pbConnected
             // 
-            this.pbConnected.Image = ((System.Drawing.Image)(resources.GetObject("pbConnected.Image")));
+            this.pbConnected.Image = global::SangAdv.Updater.Client.Properties.Resources.button_error_16px;
             this.pbConnected.Location = new System.Drawing.Point(43, 132);
             this.pbConnected.Name = "pbConnected";
             this.pbConnected.Size = new System.Drawing.Size(16, 16);
@@ -88,7 +88,7 @@
             // 
             // pbOSStatus
             // 
-            this.pbOSStatus.Image = ((System.Drawing.Image)(resources.GetObject("pbOSStatus.Image")));
+            this.pbOSStatus.Image = global::SangAdv.Updater.Client.Properties.Resources.button_error_16px;
             this.pbOSStatus.Location = new System.Drawing.Point(43, 78);
             this.pbOSStatus.Name = "pbOSStatus";
             this.pbOSStatus.Size = new System.Drawing.Size(16, 16);
@@ -108,7 +108,7 @@
             // 
             // pbFWStatus
             // 
-            this.pbFWStatus.Image = ((System.Drawing.Image)(resources.GetObject("pbFWStatus.Image")));
+            this.pbFWStatus.Image = global::SangAdv.Updater.Client.Properties.Resources.button_error_16px;
             this.pbFWStatus.Location = new System.Drawing.Point(43, 105);
             this.pbFWStatus.Name = "pbFWStatus";
             this.pbFWStatus.Size = new System.Drawing.Size(16, 16);
@@ -128,7 +128,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
+            this.btnRefresh.Image = global::SangAdv.Updater.Client.Properties.Resources.internet_refresh_16px;
             this.btnRefresh.Location = new System.Drawing.Point(647, 101);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(27, 24);
@@ -140,7 +140,7 @@
             // 
             this.btnFWDownload.Enabled = false;
             this.btnFWDownload.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFWDownload.Image = ((System.Drawing.Image)(resources.GetObject("btnFWDownload.Image")));
+            this.btnFWDownload.Image = global::SangAdv.Updater.Client.Properties.Resources.internet_download_16px;
             this.btnFWDownload.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFWDownload.Location = new System.Drawing.Point(553, 101);
             this.btnFWDownload.Name = "btnFWDownload";
@@ -155,11 +155,13 @@
             // 
             this.ImageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImageList1.ImageStream")));
             this.ImageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.ImageList1.Images.SetKeyName(0, "Error.png");
-            this.ImageList1.Images.SetKeyName(1, "ok_button.png");
+            this.ImageList1.Images.SetKeyName(0, "button-error@16px.png");
+            this.ImageList1.Images.SetKeyName(1, "button-ok@16px.png");
             // 
             // ucInstallInstaller
             // 
+            this.ActionButtonImage = global::SangAdv.Updater.Client.Properties.Resources.install_16px;
+            this.ActionButtonWidth = 70;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pbConnected);
@@ -172,6 +174,7 @@
             this.Controls.Add(this.btnFWDownload);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.saUInstall);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ucInstallInstaller";
             this.Controls.SetChildIndex(this.saUInstall, 0);
             this.Controls.SetChildIndex(this.lblVersion, 0);

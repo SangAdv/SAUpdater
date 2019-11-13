@@ -44,7 +44,7 @@ namespace SAUpdateInstaller
 
             await upExec.InitialiseAsync(SAUpdaterWinOSVersion.Win7, SAUpdaterFrameworkVersions.Version45,
                 @"http://repo.sanguine.online/applications/", "Test", "Test", "TestApp.exe", tDirectory,
-                "TestUpdater.exe", Global.CommandLineArgs);
+                "TestUpdater.exe", SAUpdaterRepositoryType.FTP, Global.CommandLineArgs);
         }
 
         private async void btnNotes_Click(object sender, EventArgs e)

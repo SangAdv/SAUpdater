@@ -19,7 +19,7 @@ namespace SangAdv.Updater.Client.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -63,6 +63,76 @@ namespace SangAdv.Updater.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap button_arrow_right_16px {
+            get {
+                object obj = ResourceManager.GetObject("button-arrow-right@16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap button_cancel_16px {
+            get {
+                object obj = ResourceManager.GetObject("button-cancel@16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap button_error_16px {
+            get {
+                object obj = ResourceManager.GetObject("button-error@16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap button_ok_16px {
+            get {
+                object obj = ResourceManager.GetObject("button-ok@16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap button_ok_48px {
+            get {
+                object obj = ResourceManager.GetObject("button-ok@48px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap download_16px {
+            get {
+                object obj = ResourceManager.GetObject("download@16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gear_filled_cancel_2_16px {
+            get {
+                object obj = ResourceManager.GetObject("gear-filled-cancel-2@16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Icon_16_SA_UP_EXEC {
             get {
                 object obj = ResourceManager.GetObject("Icon_16_SA_UP_EXEC", resourceCulture);
@@ -73,9 +143,9 @@ namespace SangAdv.Updater.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap internet_download {
+        internal static System.Drawing.Bitmap install_16px {
             get {
-                object obj = ResourceManager.GetObject("internet_download", resourceCulture);
+                object obj = ResourceManager.GetObject("install@16px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +153,9 @@ namespace SangAdv.Updater.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap OK {
+        internal static System.Drawing.Bitmap internet_download_16px {
             get {
-                object obj = ResourceManager.GetObject("OK", resourceCulture);
+                object obj = ResourceManager.GetObject("internet-download@16px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +163,9 @@ namespace SangAdv.Updater.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ok_button {
+        internal static System.Drawing.Bitmap internet_refresh_16px {
             get {
-                object obj = ResourceManager.GetObject("ok_button", resourceCulture);
+                object obj = ResourceManager.GetObject("internet-refresh@16px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +173,19 @@ namespace SangAdv.Updater.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap process_delete2 {
+        internal static System.Drawing.Bitmap media_play_button_16px {
             get {
-                object obj = ResourceManager.GetObject("process_delete2", resourceCulture);
+                object obj = ResourceManager.GetObject("media-play-button@16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap warning_64px {
+            get {
+                object obj = ResourceManager.GetObject("warning@64px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

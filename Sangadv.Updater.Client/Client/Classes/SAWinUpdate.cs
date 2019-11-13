@@ -15,7 +15,7 @@ namespace SangAdv.Updater.Client
 
         //private SAUpdaterFTPRepository mRepository;
 
-        private SAUpdaterAzureBlobRepository mRepository;
+        private ASAUpdaterRepositoryBase mRepository;
         private SAUpdaterWinClient mClient;
         private SAUpdaterUpdateOptions mOptions;
 
@@ -38,9 +38,9 @@ namespace SangAdv.Updater.Client
 
         #region Methods
 
-        public async Task InitialiseAsync(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
+        public async Task InitialiseAsync(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename, SAUpdaterRepositoryType repositoryType)
         {
-            DoInitialise(downloadServerUri, downloadServerFolder, applicationTitle, applicationLaunchFilename, applicationLaunchFolder, installerFilename);
+            DoInitialise(downloadServerUri, downloadServerFolder, applicationTitle, applicationLaunchFilename, applicationLaunchFolder, installerFilename, repositoryType);
 
             await SAUpdaterClient.InitialiseAsync(mRepository, mClient, mOptions);
 
@@ -59,9 +59,9 @@ namespace SangAdv.Updater.Client
             HasNewApplicationRelease = SAUpdaterClient.Checker.HasNewApplicationRelease;
         }
 
-        public void Initialise(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
+        public void Initialise(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename, SAUpdaterRepositoryType repositoryType)
         {
-            DoInitialise(downloadServerUri, downloadServerFolder, applicationTitle, applicationLaunchFilename, applicationLaunchFolder, installerFilename);
+            DoInitialise(downloadServerUri, downloadServerFolder, applicationTitle, applicationLaunchFilename, applicationLaunchFolder, installerFilename, repositoryType);
 
             SAUpdaterClient.Initialise(mRepository, mClient, mOptions);
 
@@ -121,7 +121,7 @@ namespace SangAdv.Updater.Client
             return true;
         }
 
-        private void DoInitialise(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename)
+        private void DoInitialise(string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename, SAUpdaterRepositoryType repositoryType)
         {
             Error.ClearErrorMessage();
 
@@ -130,9 +130,17 @@ namespace SangAdv.Updater.Client
             mIsInitialised = true;
             mApplicationLaunchFolder = applicationLaunchFolder;
 
-            //mRepository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
+            switch (repositoryType)
+            {
+                case SAUpdaterRepositoryType.FTP:
+                    mRepository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
+                    break;
 
-            mRepository = new SAUpdaterAzureBlobRepository(downloadServerUri, downloadServerFolder);
+                case SAUpdaterRepositoryType.AzureBlob:
+                    mRepository = new SAUpdaterAzureBlobRepository(downloadServerUri, downloadServerFolder);
+                    break;
+            }
+
             mClient = new SAUpdaterWinClient();
             mOptions = new SAUpdaterUpdateOptions { ApplicationTitle = applicationTitle, LaunchFilename = applicationLaunchFilename, ApplicationFolder = mApplicationLaunchFolder, ChooseApplicationFolder = true, InstallerFilename = installerFilename };
         }

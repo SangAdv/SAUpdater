@@ -42,7 +42,7 @@ namespace SAUpdateInstaller
 
             upExec.AddDefaultModules();
 
-            await upExec.InitialiseAsync(SAUpdaterWinOSVersion.Win7, SAUpdaterFrameworkVersions.Version45, @"http://repo.sanguine.online/applications/", "Test", "Test App", "TestApp.exe", tDirectory, "TestUpdater.exe", Global.CommandLineArgs);
+            await upExec.InitialiseAsync(SAUpdaterWinOSVersion.Win7, SAUpdaterFrameworkVersions.Version45, @"https://pharmatracksa.blob.core.windows.net/", "install/Test", "Test App", "TestApp.exe", tDirectory, "TestUpdater.exe", SAUpdaterRepositoryType.AzureBlob, Global.CommandLineArgs);
         }
 
         private async void btnNotes_Click(object sender, EventArgs e)

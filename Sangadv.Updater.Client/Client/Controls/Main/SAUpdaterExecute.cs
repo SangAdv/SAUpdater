@@ -128,20 +128,30 @@ namespace SangAdv.Updater.Client
             AddModule(SAUpdaterModuleType.InstallEnd);
         }
 
-        public async Task InitialiseAsync(SAUpdaterWinOSVersion osVersion, SAUpdaterFrameworkVersions framework, string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename, string[] commandlineOptions = null)
+        public async Task InitialiseAsync(SAUpdaterWinOSVersion osVersion, SAUpdaterFrameworkVersions framework, string downloadServerUri, string downloadServerFolder, string applicationTitle, string applicationLaunchFilename, string applicationLaunchFolder, string installerFilename, SAUpdaterRepositoryType repositoryType, string[] commandlineOptions = null)
         {
             mError.ClearErrorMessage();
 
-            checkErrors();
+            CheckErrors();
             if (mError.HasError)
             {
                 InitialisationCompleted(false);
                 return;
             }
 
-            //var repository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
+            ASAUpdaterRepositoryBase repository = null;
 
-            var repository = new SAUpdaterAzureBlobRepository(downloadServerUri, downloadServerFolder);
+            switch (repositoryType)
+            {
+                case SAUpdaterRepositoryType.FTP:
+                    repository = new SAUpdaterFTPRepository(downloadServerUri, downloadServerFolder);
+                    break;
+
+                case SAUpdaterRepositoryType.AzureBlob:
+                    repository = new SAUpdaterAzureBlobRepository(downloadServerUri, downloadServerFolder);
+                    break;
+            }
+
             var client = new SAUpdaterWinClient();
             var options = new SAUpdaterUpdateOptions { ApplicationTitle = applicationTitle, LaunchFilename = applicationLaunchFilename, ApplicationFolder = applicationLaunchFolder, ChooseApplicationFolder = true, InstallerFilename = installerFilename };
             if (commandlineOptions != null) options.UpdateFromCommandLine(commandlineOptions);
@@ -172,6 +182,18 @@ namespace SangAdv.Updater.Client
 
             await SAUpdaterClient.InitialiseAsync(repository, client, options);
 
+            if (SAUpdaterClient.Error.HasError)
+            {
+                if (SAUpdaterClient.Error.Result == SAUpdaterResults.MissingVersionFile)
+                {
+                    SAUpdaterGlobal.AddLog($"Client Initialisation Error: {SAUpdaterClient.Error.Message}", "Initialise", $"options.ChooseApplicationFolder: {options.ChooseApplicationFolder}");
+                    mError = SAUpdaterGlobal.Error;
+                    await processInitialisationErrorAsync();
+                    InitialisationCompleted(false);
+                    return;
+                }
+            }
+
             SAUpdaterGlobal.AddLog("SAUpdaterExecute", "Initialise", $"options.ChooseApplicationFolder: {options.ChooseApplicationFolder}");
             SAUpdaterGlobal.AddLog("SAUpdaterExecute", "Initialise", $"options.ApplicationFolder: {options.ApplicationFolder}");
             SAUpdaterGlobal.AddLog("SAUpdaterExecute", "Initialise", $"CanInstall: {Checker.CanInstall}");
@@ -188,9 +210,9 @@ namespace SangAdv.Updater.Client
 
             SAUpdaterGlobal.IsInitialised = true;
 
-            addModules();
+            AddModules();
 
-            var success = await showFirstAsync();
+            var success = await ShowFirstAsync();
             if (!success) mError.SetErrorMessage("Error showing first module");
 
             InitialisationCompleted(success);
@@ -200,7 +222,7 @@ namespace SangAdv.Updater.Client
 
         #region Private Methods
 
-        private async Task<bool> showFirstAsync()
+        private async Task<bool> ShowFirstAsync()
         {
             if (!SAUpdaterGlobal.IsInitialised)
             {
@@ -385,7 +407,7 @@ namespace SangAdv.Updater.Client
             return currentStartupPath;
         }
 
-        private void addModules()
+        private void AddModules()
         {
             foreach (var item in mModules)
             {
@@ -394,7 +416,7 @@ namespace SangAdv.Updater.Client
             }
         }
 
-        private void checkErrors()
+        private void CheckErrors()
         {
             if (mModules.Count == 0)
             {

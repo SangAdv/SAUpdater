@@ -50,7 +50,7 @@
             // 
             // pbSettingsfile
             // 
-            this.pbSettingsfile.Image = ((System.Drawing.Image)(resources.GetObject("pbSettingsfile.Image")));
+            this.pbSettingsfile.Image = global::SangAdv.Updater.Client.Properties.Resources.button_error_16px;
             this.pbSettingsfile.Location = new System.Drawing.Point(43, 178);
             this.pbSettingsfile.Name = "pbSettingsfile";
             this.pbSettingsfile.Size = new System.Drawing.Size(16, 16);
@@ -64,7 +64,7 @@
             this.lblSettingsFile.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSettingsFile.Location = new System.Drawing.Point(65, 177);
             this.lblSettingsFile.Name = "lblSettingsFile";
-            this.lblSettingsFile.Size = new System.Drawing.Size(111, 23);
+            this.lblSettingsFile.Size = new System.Drawing.Size(84, 17);
             this.lblSettingsFile.TabIndex = 65;
             this.lblSettingsFile.Text = "lblSettingsFile";
             // 
@@ -74,13 +74,13 @@
             this.lblFileCount.Font = new System.Drawing.Font("Segoe UI Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFileCount.Location = new System.Drawing.Point(40, 205);
             this.lblFileCount.Name = "lblFileCount";
-            this.lblFileCount.Size = new System.Drawing.Size(51, 23);
+            this.lblFileCount.Size = new System.Drawing.Size(41, 17);
             this.lblFileCount.TabIndex = 64;
             this.lblFileCount.Text = "0 files";
             // 
             // pbConnected
             // 
-            this.pbConnected.Image = ((System.Drawing.Image)(resources.GetObject("pbConnected.Image")));
+            this.pbConnected.Image = global::SangAdv.Updater.Client.Properties.Resources.button_error_16px;
             this.pbConnected.Location = new System.Drawing.Point(43, 151);
             this.pbConnected.Name = "pbConnected";
             this.pbConnected.Size = new System.Drawing.Size(16, 16);
@@ -94,13 +94,13 @@
             this.lblConnected.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblConnected.Location = new System.Drawing.Point(65, 150);
             this.lblConnected.Name = "lblConnected";
-            this.lblConnected.Size = new System.Drawing.Size(108, 23);
+            this.lblConnected.Size = new System.Drawing.Size(81, 17);
             this.lblConnected.TabIndex = 58;
             this.lblConnected.Text = "lblConnected";
             // 
             // pbOSStatus
             // 
-            this.pbOSStatus.Image = ((System.Drawing.Image)(resources.GetObject("pbOSStatus.Image")));
+            this.pbOSStatus.Image = global::SangAdv.Updater.Client.Properties.Resources.button_error_16px;
             this.pbOSStatus.Location = new System.Drawing.Point(43, 97);
             this.pbOSStatus.Name = "pbOSStatus";
             this.pbOSStatus.Size = new System.Drawing.Size(16, 16);
@@ -114,13 +114,13 @@
             this.lblOS.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOS.Location = new System.Drawing.Point(65, 96);
             this.lblOS.Name = "lblOS";
-            this.lblOS.Size = new System.Drawing.Size(50, 23);
+            this.lblOS.Size = new System.Drawing.Size(38, 17);
             this.lblOS.TabIndex = 56;
             this.lblOS.Text = "lblOS";
             // 
             // pbFWStatus
             // 
-            this.pbFWStatus.Image = ((System.Drawing.Image)(resources.GetObject("pbFWStatus.Image")));
+            this.pbFWStatus.Image = global::SangAdv.Updater.Client.Properties.Resources.button_error_16px;
             this.pbFWStatus.Location = new System.Drawing.Point(43, 124);
             this.pbFWStatus.Name = "pbFWStatus";
             this.pbFWStatus.Size = new System.Drawing.Size(16, 16);
@@ -134,7 +134,7 @@
             this.lblFramework.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFramework.Location = new System.Drawing.Point(65, 123);
             this.lblFramework.Name = "lblFramework";
-            this.lblFramework.Size = new System.Drawing.Size(110, 23);
+            this.lblFramework.Size = new System.Drawing.Size(82, 17);
             this.lblFramework.TabIndex = 54;
             this.lblFramework.Text = "lblFramework";
             // 
@@ -142,7 +142,7 @@
             // 
             this.btnFWDownload.Enabled = false;
             this.btnFWDownload.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFWDownload.Image = global::SangAdv.Updater.Client.Properties.Resources.internet_download;
+            this.btnFWDownload.Image = global::SangAdv.Updater.Client.Properties.Resources.internet_download_16px;
             this.btnFWDownload.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFWDownload.Location = new System.Drawing.Point(535, 202);
             this.btnFWDownload.Name = "btnFWDownload";
@@ -160,7 +160,7 @@
             this.lblVersion.Font = new System.Drawing.Font("Segoe UI Semilight", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.Location = new System.Drawing.Point(38, 35);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(89, 37);
+            this.lblVersion.Size = new System.Drawing.Size(70, 30);
             this.lblVersion.TabIndex = 50;
             this.lblVersion.Text = "Label1";
             // 
@@ -173,10 +173,10 @@
             // 
             // ucDownload
             // 
-            this.ActionButtonImage = global::SangAdv.Updater.Client.Properties.Resources.internet_download;
+            this.ActionButtonImage = global::SangAdv.Updater.Client.Properties.Resources.download_16px;
             this.ActionButtonText = "Download";
             this.ActionButtonWidth = 90;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pbSettingsfile);
             this.Controls.Add(this.lblSettingsFile);
@@ -190,9 +190,7 @@
             this.Controls.Add(this.btnFWDownload);
             this.Controls.Add(this.lblVersion);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "ucDownload";
-            this.Size = new System.Drawing.Size(1244, 574);
             this.Controls.SetChildIndex(this.lblVersion, 0);
             this.Controls.SetChildIndex(this.btnFWDownload, 0);
             this.Controls.SetChildIndex(this.lblFramework, 0);

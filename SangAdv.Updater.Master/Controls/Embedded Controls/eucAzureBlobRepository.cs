@@ -36,7 +36,7 @@ namespace SangAdv.Updater.Master
             txtApplicationFolder.Text = mSettings.Settings.ApplicationFolder;
             //txtFTPUsername.Text = mSettings.Settings.FTPUsername;
             //txtFTPPassword.Text = mSettings.Settings.FTPPassword;
-            txtAzureBlobDownloadUri.Text = new Uri(mSettings.Settings.FTPDownloadUri.FixURLDirectoryLink(), UriKind.Absolute).ToString();
+            txtAzureBlobDownloadUri.Text = !string.IsNullOrEmpty(mSettings.Settings.FTPDownloadUri) ? new Uri(mSettings.Settings.FTPDownloadUri.FixURLDirectoryLink(), UriKind.Absolute).ToString() : string.Empty;
         }
 
         internal override void GetVariableDefaults()

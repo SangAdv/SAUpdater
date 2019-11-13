@@ -1,12 +1,6 @@
 ﻿using SangAdv.Updater.Client;
+using SangAdv.Updater.Common;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ClientTest
@@ -21,12 +15,11 @@ namespace ClientTest
         private void SimpleButton1_Click(object sender, EventArgs e)
         {
             var Update = new SAWinUpdate();
-            Update.Initialise(@"http://repo.sanguine.online/applications/", "pharmatrackcore", "pharmatrack Core", "pharmatrack.exe", Application.StartupPath, "updater.exe");
+            Update.Initialise(@"http://repo.sanguine.online/applications/", "pharmatrackcore", "pharmatrack Core", "pharmatrack.exe", Application.StartupPath, "updater.exe", SAUpdaterRepositoryType.FTP);
 
             if (Update.DoInstallerUpdate)
             {
                 var success = Update.UpdateInstaller();
-
             }
         }
     }

@@ -118,19 +118,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="button_arrow_right_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button-arrow-right@16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_cancel_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button-cancel@16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_error_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button-error@16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_ok_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button-ok@16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_ok_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button-ok@48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="download_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\download@16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gear_filled_cancel_2_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gear-filled-cancel-2@16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Icon_16_SA_UP_EXEC" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_16_SA_UP_EXEC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="internet_download" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\internet_download.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="install_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\install@16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="internet_download_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\internet-download@16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ok_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ok_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="internet_refresh_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\internet-refresh@16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="process_delete2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\process-delete2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="media_play_button_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\media-play-button@16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="warning_64px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warning@64px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

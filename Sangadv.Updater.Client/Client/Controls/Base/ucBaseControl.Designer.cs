@@ -37,12 +37,11 @@
             // 
             this.btnAction.Enabled = false;
             this.btnAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAction.Image = global::SangAdv.Updater.Client.Properties.Resources.OK;
+            this.btnAction.Image = global::SangAdv.Updater.Client.Properties.Resources.install_16px;
             this.btnAction.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAction.Location = new System.Drawing.Point(768, 334);
-            this.btnAction.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAction.Location = new System.Drawing.Point(576, 271);
             this.btnAction.Name = "btnAction";
-            this.btnAction.Size = new System.Drawing.Size(131, 30);
+            this.btnAction.Size = new System.Drawing.Size(98, 24);
             this.btnAction.TabIndex = 55;
             this.btnAction.Text = "Install";
             this.btnAction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -53,10 +52,9 @@
             // 
             this.lblError.AutoSize = true;
             this.lblError.Font = new System.Drawing.Font("Segoe UI Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblError.Location = new System.Drawing.Point(53, 342);
-            this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblError.Location = new System.Drawing.Point(40, 278);
             this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(118, 23);
+            this.lblError.Size = new System.Drawing.Size(86, 17);
             this.lblError.TabIndex = 69;
             this.lblError.Text = "Error occurred";
             // 
@@ -64,23 +62,21 @@
             // 
             this.lblMessage.AutoSize = true;
             this.lblMessage.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMessage.Location = new System.Drawing.Point(53, 318);
-            this.lblMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMessage.Location = new System.Drawing.Point(40, 258);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(115, 23);
+            this.lblMessage.Size = new System.Drawing.Size(89, 17);
             this.lblMessage.TabIndex = 68;
             this.lblMessage.Text = "Im a message";
             // 
             // ucBaseControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblError);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.btnAction);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ucBaseControl";
-            this.Size = new System.Drawing.Size(933, 393);
+            this.Size = new System.Drawing.Size(700, 319);
             this.ResumeLayout(false);
             this.PerformLayout();
 

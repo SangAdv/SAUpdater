@@ -48,11 +48,7 @@ namespace SangAdv.Updater.Client
         {
             SetLaunchDefaults();
 
-            var tString = string.Empty;
-
-            tString = mOptions.IsUpdate ? " updated successfully." : " installed successfully.";
-
-            pbUpdateStatus.Image = Properties.Resources.ok_button;
+            var tString = mOptions.IsUpdate ? " updated successfully." : " installed successfully.";
 
             lblSuccess.Text = $"{mOptions.ApplicationTitle}{tString}";
 

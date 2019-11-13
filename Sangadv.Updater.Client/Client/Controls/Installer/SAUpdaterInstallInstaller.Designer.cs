@@ -28,27 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SAUpdaterInstallInstaller));
-            this.btnAction = new System.Windows.Forms.Button();
             this.lblMessage = new System.Windows.Forms.Label();
             this.lblProgress = new System.Windows.Forms.Label();
             this.pbProgress = new SangAdv.Updater.Client.eucSAUpdaterProgressBar();
+            this.btnAction = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnAction
-            // 
-            this.btnAction.Enabled = false;
-            this.btnAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAction.Image = ((System.Drawing.Image)(resources.GetObject("btnAction.Image")));
-            this.btnAction.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAction.Location = new System.Drawing.Point(-1, 3);
-            this.btnAction.Name = "btnAction";
-            this.btnAction.Size = new System.Drawing.Size(98, 24);
-            this.btnAction.TabIndex = 56;
-            this.btnAction.Text = "Install";
-            this.btnAction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAction.UseVisualStyleBackColor = true;
-            this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
             // 
             // lblMessage
             // 
@@ -77,6 +61,7 @@
             this.pbProgress.BackColour = System.Drawing.Color.DarkGray;
             this.pbProgress.FillColour = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(114)))), ((int)(((byte)(198)))));
             this.pbProgress.Location = new System.Drawing.Point(0, 36);
+            this.pbProgress.Margin = new System.Windows.Forms.Padding(4);
             this.pbProgress.MarqueeFillPercentage = 25;
             this.pbProgress.MarqueeStepSize = 5;
             this.pbProgress.Maximum = 100;
@@ -87,6 +72,21 @@
             this.pbProgress.TabIndex = 58;
             this.pbProgress.TimerInterVal = 5000;
             this.pbProgress.Value = 0;
+            // 
+            // btnAction
+            // 
+            this.btnAction.Enabled = false;
+            this.btnAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAction.Image = global::SangAdv.Updater.Client.Properties.Resources.install_16px;
+            this.btnAction.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAction.Location = new System.Drawing.Point(-1, 3);
+            this.btnAction.Name = "btnAction";
+            this.btnAction.Size = new System.Drawing.Size(72, 24);
+            this.btnAction.TabIndex = 56;
+            this.btnAction.Text = "Install";
+            this.btnAction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAction.UseVisualStyleBackColor = true;
+            this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
             // 
             // SAUpdaterInstallInstaller
             // 

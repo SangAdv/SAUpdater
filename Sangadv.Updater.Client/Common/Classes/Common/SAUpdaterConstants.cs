@@ -2,9 +2,9 @@
 {
     public class SAUpdaterConstants
     {
-        internal const string RepositoryUpdateDefinitionFileName = "update.html";
-        internal const string RepositoryUpdateNotesFileName = "notes.html";
-        internal const string RepositoryUpdateFilesFileName = "files.html";
+        internal const string RepositoryUpdateDefinitionFileName = "UPDATE.HTML";
+        internal const string RepositoryUpdateNotesFileName = "NOTES.HTML";
+        internal const string RepositoryUpdateFilesFileName = "FILES.HTML";
 
         internal const string ClientUpdateDefinitionFileName = "update.saudf";
         internal const string ClientStartupFileName = "startup.saudf";

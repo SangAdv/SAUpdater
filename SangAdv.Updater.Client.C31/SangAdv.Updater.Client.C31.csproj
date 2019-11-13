@@ -56,6 +56,7 @@
     <Compile Include="..\Sangadv.Updater.Client\Client\Embedded Controls\eucSAUpdaterProgressBar.designer.cs" Link="Client\Embedded Controls\eucSAUpdaterProgressBar.designer.cs" />
     <Compile Include="..\Sangadv.Updater.Client\Client\Forms\frmChooseFolder.cs" Link="Client\Forms\frmChooseFolder.cs" />
     <Compile Include="..\Sangadv.Updater.Client\Client\Forms\frmChooseFolder.designer.cs" Link="Client\Forms\frmChooseFolder.designer.cs" />
+    <Compile Include="..\SangAdv.Updater.Client\Client\Repository Templates\SAUpdaterAzureBlobRepository.cs" Link="Client\Repository Templates\SAUpdaterAzureBlobRepository.cs" />
     <Compile Include="..\Sangadv.Updater.Client\Client\Repository Templates\SAUpdaterFTPRepository.cs" Link="Client\Repository Templates\SAUpdaterFTPRepository.cs" />
     <Compile Include="..\Sangadv.Updater.Client\Common\Abstract Classes\ASAUpdaterClientBase.cs" Link="Common\Abstract Classes\ASAUpdaterClientBase.cs" />
     <Compile Include="..\Sangadv.Updater.Client\Common\Abstract Classes\ASAUpdaterClientFileList.cs" Link="Common\Abstract Classes\ASAUpdaterClientFileList.cs" />
@@ -91,8 +92,8 @@
     <Compile Include="..\Sangadv.Updater.Client\Common\Enums\Enums.cs" Link="Common\Enums\Enums.cs" />
     <Compile Include="..\Sangadv.Updater.Client\Common\Enums\SAUpdaterEnums.cs" Link="Common\Enums\SAUpdaterEnums.cs" />
     <Compile Include="..\Sangadv.Updater.Client\Common\Extension Methods\ExtensionMethods.cs" Link="Common\Extension Methods\ExtensionMethods.cs" />
+    <Compile Include="..\SangAdv.Updater.Client\Common\Repository Templates\Azure Blob\ASAUpdaterAzureBlobBaseRepository.cs" Link="Common\Repository Templates\Azure Blob\ASAUpdaterAzureBlobBaseRepository.cs" />
     <Compile Include="..\Sangadv.Updater.Client\Common\Repository Templates\FTP\ASAUpdaterFTPBaseRepository.cs" Link="Common\Repository Templates\FTP\ASAUpdaterFTPBaseRepository.cs" />
-    <Compile Include="..\Sangadv.Updater.Client\Common\Repository Templates\FTP\SAUpdaterFTPClient.cs" Link="Common\Repository Templates\FTP\SAUpdaterFTPClient.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -114,6 +115,7 @@
     <Folder Include="Common\Enums\" />
     <Folder Include="Common\Extension Methods\" />
     <Folder Include="Common\Repository Templates\FTP\" />
+    <Folder Include="Common\Repository Templates\Azure Blob\" />
   </ItemGroup>
 
   <ItemGroup>
