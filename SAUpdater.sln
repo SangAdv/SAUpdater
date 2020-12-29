@@ -29,8 +29,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientTest", "TestClient\Cl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SangAdv.Updater.Client", "SangAdv.Updater.Client\SangAdv.Updater.Client.csproj", "{574CD675-D2E5-4789-AF9E-C5E217D352D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SangAdv.Updater.Client.C31", "SangAdv.Updater.Client.C31\SangAdv.Updater.Client.C31.csproj", "{79228278-3451-48B7-9318-044A92838D5A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,10 +67,6 @@ Global
 		{574CD675-D2E5-4789-AF9E-C5E217D352D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{574CD675-D2E5-4789-AF9E-C5E217D352D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{574CD675-D2E5-4789-AF9E-C5E217D352D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79228278-3451-48B7-9318-044A92838D5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79228278-3451-48B7-9318-044A92838D5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79228278-3451-48B7-9318-044A92838D5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79228278-3451-48B7-9318-044A92838D5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

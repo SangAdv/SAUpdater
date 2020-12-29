@@ -186,6 +186,7 @@ namespace SangAdv.Updater.Master
             cbis.Add("4.7", ((int)SAUpdaterFrameworkVersions.Version47).ToString());
             cbis.Add("4.7.1", ((int)SAUpdaterFrameworkVersions.Version471).ToString());
             cbis.Add("4.7.2", ((int)SAUpdaterFrameworkVersions.Version472).ToString());
+            cbis.Add("4.8", ((int)SAUpdaterFrameworkVersions.Version48).ToString());
             cmbNetVersion.DataSource = cbis.Items;
         }
 

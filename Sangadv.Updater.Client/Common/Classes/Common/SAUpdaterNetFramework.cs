@@ -104,6 +104,8 @@ namespace SangAdv.Updater.Common
             VersionList.Add(new VersionListItem { VersionId = 528040, Version = SAUpdaterFrameworkVersions.Version48, Description = ".NET Framework 4.8 On Windows 10 May 2019 Update" });
             VersionList.Add(new VersionListItem { VersionId = 528049, Version = SAUpdaterFrameworkVersions.Version48, Description = ".NET Framework 4.8" });
 
+            VersionList.Add(new VersionListItem { VersionId = 528372, Version = SAUpdaterFrameworkVersions.Version48, Description = ".NET Framework 4.8 On Windows 10 October 2020 Update" });
+
             VersionList.Add(new VersionListItem { VersionId = 0, Version = SAUpdaterFrameworkVersions.None, Description = "Unknown .NET Framework" });
 
             mMinFWVersion = 378389;
