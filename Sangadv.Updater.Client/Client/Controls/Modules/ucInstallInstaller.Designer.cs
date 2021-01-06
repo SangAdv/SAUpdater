@@ -38,8 +38,6 @@
             this.lblOS = new System.Windows.Forms.Label();
             this.pbFWStatus = new System.Windows.Forms.PictureBox();
             this.lblFramework = new System.Windows.Forms.Label();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnFWDownload = new System.Windows.Forms.Button();
             this.ImageList1 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbConnected)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbOSStatus)).BeginInit();
@@ -126,31 +124,6 @@
             this.lblFramework.TabIndex = 74;
             this.lblFramework.Text = "lblFramework";
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Image = global::SangAdv.Updater.Client.Properties.Resources.internet_refresh_16px;
-            this.btnRefresh.Location = new System.Drawing.Point(647, 101);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(27, 24);
-            this.btnRefresh.TabIndex = 73;
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Visible = false;
-            // 
-            // btnFWDownload
-            // 
-            this.btnFWDownload.Enabled = false;
-            this.btnFWDownload.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFWDownload.Image = global::SangAdv.Updater.Client.Properties.Resources.internet_download_16px;
-            this.btnFWDownload.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnFWDownload.Location = new System.Drawing.Point(553, 101);
-            this.btnFWDownload.Name = "btnFWDownload";
-            this.btnFWDownload.Size = new System.Drawing.Size(88, 24);
-            this.btnFWDownload.TabIndex = 72;
-            this.btnFWDownload.Text = "Download";
-            this.btnFWDownload.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFWDownload.UseVisualStyleBackColor = true;
-            this.btnFWDownload.Visible = false;
-            // 
             // ImageList1
             // 
             this.ImageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImageList1.ImageStream")));
@@ -170,16 +143,12 @@
             this.Controls.Add(this.lblOS);
             this.Controls.Add(this.pbFWStatus);
             this.Controls.Add(this.lblFramework);
-            this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.btnFWDownload);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.saUInstall);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ucInstallInstaller";
             this.Controls.SetChildIndex(this.saUInstall, 0);
             this.Controls.SetChildIndex(this.lblVersion, 0);
-            this.Controls.SetChildIndex(this.btnFWDownload, 0);
-            this.Controls.SetChildIndex(this.btnRefresh, 0);
             this.Controls.SetChildIndex(this.lblFramework, 0);
             this.Controls.SetChildIndex(this.pbFWStatus, 0);
             this.Controls.SetChildIndex(this.lblOS, 0);
@@ -204,8 +173,6 @@
         internal System.Windows.Forms.Label lblOS;
         internal System.Windows.Forms.PictureBox pbFWStatus;
         internal System.Windows.Forms.Label lblFramework;
-        internal System.Windows.Forms.Button btnRefresh;
-        internal System.Windows.Forms.Button btnFWDownload;
         internal System.Windows.Forms.ImageList ImageList1;
     }
 }

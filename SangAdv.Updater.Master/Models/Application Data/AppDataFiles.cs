@@ -59,6 +59,12 @@ namespace SangAdv.Updater.Master
             if (cf.Any()) mCollection.Delete(x => x.Id == fileId);
         }
 
+        internal bool ContainsFile(string fileName)
+        {
+            var a = mCollection.Find(x => x.Filename.ToUpper() == fileName.ToUpper());
+            return a.Any();
+        }
+
         #endregion Methods
     }
 

@@ -35,7 +35,7 @@ namespace SangAdv.Updater.Client
         {
             try
             {
-                btnFWDownload.Enabled = SetUI();
+                SetUI();
             }
             catch (Exception ex)
             {
@@ -43,10 +43,9 @@ namespace SangAdv.Updater.Client
             }
         }
 
-        private bool SetUI()
+        private void SetUI()
         {
             btnAction.Enabled = true;
-            btnFWDownload.Enabled = false;
 
             if (SAUpdaterGlobal.Client.ClientOSVersion.IsRequiredVersion((int)SAUpdaterClient.Installer.InstallerRequiredOsVersion))
             {
@@ -67,7 +66,6 @@ namespace SangAdv.Updater.Client
             else
             {
                 lblFramework.Text = $"{SAUpdaterGlobal.Client.ClientFramework.GetVersionDescription(SAUpdaterClient.Installer.InstallerRequiredFramework)} or above required. Please download and install.";
-                btnFWDownload.Visible = true;
                 btnAction.Enabled = false;
                 pbFWStatus.Image = ImageList1.Images[0];
             }
@@ -86,11 +84,9 @@ namespace SangAdv.Updater.Client
                 pbConnected.Image = ImageList1.Images[1];
                 lblConnected.Text = "Connected to the Net";
             }
-
-            return btnAction.Enabled;
         }
 
-        public override async  Task ExecuteStartAsync()
+        public override async Task ExecuteStartAsync()
         {
             SuspendLayout();
             saUInstall.Initialise();

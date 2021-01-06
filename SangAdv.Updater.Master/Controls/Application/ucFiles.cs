@@ -222,7 +222,7 @@ namespace SangAdv.Updater.Master
                         return;
                     }
 
-                    tFiles.Add(fi);
+                    if (!mAppDataFile.Files.ContainsFile(fi.Name)) tFiles.Add(fi);
                 }
                 else if (Directory.Exists(filenames[i]))
                 {
