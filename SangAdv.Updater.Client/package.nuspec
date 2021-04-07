@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <!--*-->
+    <id>Sangadv.Updater</id>
+    <!--*-->
+    <version>4.6.0</version>
+    <title>Sangadv.Updater</title>
+    <!--*-->
+    <authors>Sanguine Advantage PTY LTD</authors>
+    <owners>Sanguine Advantage PTY LTD</owners>
+    <!--
+    <licenseUrl></licenseUrl>
+    <projectUrl></projectUrl>
+    <iconUrl></iconUrl>
+-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <!--*-->
+    <description>Sangadv.Updater</description>
+    <!--*-->
+    <releaseNotes>Sangadv.Updater</releaseNotes>
+    <copyright>Copyright ©  2019</copyright>
+    <tags>
+    </tags>
+    <dependencies>
+      <!--
+      <dependency id="SampleDependency" version="1.0" />
+-->
+    </dependencies>
+  </metadata>
+</package>
